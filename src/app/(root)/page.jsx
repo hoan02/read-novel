@@ -1,25 +1,19 @@
-import { auth, OrganizationList, OrganizationProfile } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-
-import styles from "@/styles/home.module.css";
+import Guide from "@/components/Guide";
+import ListNovel from "@/components/ListNovel";
+import ListReading from "@/components/ListReading";
 
 const HomePage = () => {
-  const { sessionClaims } = auth();
-  const fullName = sessionClaims?.fullName;
-  const email = sessionClaims?.email;
-  const role = sessionClaims?.role;
-  const orgSlug = sessionClaims?.org_slug;
-
-  // if (orgSlug) {
-  //   redirect(`/${orgSlug}`);
-  // }
-
   return (
-    <div className={styles.home}>
-      <div className="flex">
-        <div className="w-2/3">left</div>
-        <div className="w-1/3">right</div>
-        <div>cay vcl</div>
+    <div className="bg-white shadow-md p-4 rounded-lg">
+      <div className="flex gap-4 font-source-sans-pro">
+        <div className="w-3/4">
+          <ListNovel />
+        </div>
+
+        <div className="w-1/4">
+          <ListReading />
+          <Guide />
+        </div>
       </div>
     </div>
   );

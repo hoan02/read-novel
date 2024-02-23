@@ -16,23 +16,11 @@
   box-sizing: border-box;
 }
 
-body {
-}
-
 main {
   position: relative;
   top: 220px;
   width: 1200px;
   margin: 0 auto;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style: none;
 }
 
 .cl-rootBox {

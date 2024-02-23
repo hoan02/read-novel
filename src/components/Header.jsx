@@ -9,11 +9,13 @@ import { BiSolidCabinet } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { RiAdminLine } from "react-icons/ri";
+import { IoIosSearch } from "react-icons/io";
 
 import styles from "@/styles/header.module.css";
 
 const Header = () => {
   const { sessionClaims } = auth();
+  console.log(sessionClaims);
   const fullName = sessionClaims?.fullName;
   const avatar = sessionClaims?.avatar;
   const isAdmin = sessionClaims?.role === "org:admin";
@@ -67,7 +69,7 @@ const Header = () => {
             type="text"
             placeholder="Tìm kiếm truyện..."
           />
-          <Image src="/search.png" alt="icon search" width={24} height={24} />
+          <IoIosSearch className={styles.searchIcon} size={24} />
         </div>
 
         <div className={styles.right}>
