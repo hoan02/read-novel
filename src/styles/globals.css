@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #43b656;
+  --bgSoft: #b0d4b8;
+  --textColor: #f8f8f8;
+  --softTextColor: #84495f;
+  --btn: #5d7b6f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+}
+
+main {
+  position: relative;
+  top: 220px;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.cl-rootBox {
+  width: 100%;
+}
+
+.cl-card {
+  width: calc(100% - 27px);
+  background-color: #effdf2;
+}
+
+.cl-signIn-root,
+.cl-signUp-root {
+  margin: 220px auto 0;
+  width: 440px;
+}
+
+.cl-organizationSwitcherPopoverActionButton__createOrganization {
+  display: none;
+}
+
+.cl-organizationSwitcherPopoverCard {
+  width: 400px;
+}
+
+.cl-organizationProfile-root {
+  width: 1200px;
+}
