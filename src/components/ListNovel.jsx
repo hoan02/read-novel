@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Chip from "@mui/material/Chip";
+import { FaUserEdit } from "react-icons/fa";
 
 const ListNovel = () => {
   const [novels, setNovels] = useState([]);
@@ -70,8 +72,18 @@ const ListNovel = () => {
                   ? novel.description.substring(0, 120) + "..."
                   : novel.description}
               </p>
-              <p className="text-sm text-gray-600">Tác giả: {novel.author}</p>
-              <p className="text-sm text-gray-600">Thể loại: {novel.type}</p>
+              <div className="mt-2 flex justify-between">
+                <div className="text-sm text-gray-600 flex items-center gap-2">
+                  <FaUserEdit />
+                  {novel.author}
+                </div>
+                <Chip
+                  label={novel.type}
+                  variant="outlined"
+                  size="small"
+                  style={{ color: "#8B4513" }}
+                />
+              </div>
             </div>
           </div>
         ))}

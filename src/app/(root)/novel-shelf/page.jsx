@@ -1,32 +1,15 @@
+"use client";
+
+import { useState } from "react";
+
 const NovelShelfPage = () => {
-  return (
-    <div>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint sequi
-        illum ad placeat ex, vero voluptatem magnam consequuntur minima,
-        assumenda quaerat enim praesentium eveniet deserunt dolorem maxime dolor
-        ipsa animi?
-      </div>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint sequi
-        illum ad placeat ex, vero voluptatem magnam consequuntur minima,
-        assumenda quaerat enim praesentium eveniet deserunt dolorem maxime dolor
-        ipsa animi?
-      </div>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint sequi
-        illum ad placeat ex, vero voluptatem magnam consequuntur minima,
-        assumenda quaerat enim praesentium eveniet deserunt dolorem maxime dolor
-        ipsa animi?
-      </div>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint sequi
-        illum ad placeat ex, vero voluptatem magnam consequuntur minima,
-        assumenda quaerat enim praesentium eveniet deserunt dolorem maxime dolor
-        ipsa animi?
-      </div>
-    </div>
-  );
+  const [value, setValue] = useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return <div className="bg-white ">ok</div>;
 };
 
 export default NovelShelfPage;

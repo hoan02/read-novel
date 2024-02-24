@@ -20,7 +20,9 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <Header />
           <Banner />
-          <main>{children}</main>
+          <main className="max-w-7xl mx-auto p-4 relative top-52">
+            {children}
+          </main>
           <Footer />
         </body>
       </html>

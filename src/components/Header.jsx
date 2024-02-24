@@ -4,125 +4,133 @@ import { auth, SignOutButton } from "@clerk/nextjs";
 
 import { FaBell } from "react-icons/fa";
 import { GrUploadOption } from "react-icons/gr";
-import { ImProfile } from "react-icons/im";
-import { BiSolidCabinet } from "react-icons/bi";
-import { IoMdSettings } from "react-icons/io";
+
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { RiAdminLine } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
-
-import styles from "@/styles/header.module.css";
+import Badge from "@mui/material/Badge";
+import Avatar from "@mui/material/Avatar";
+import { novelTypes, novelRanks, menuAccount } from "@/constants/index";
 
 const Header = () => {
   const { sessionClaims } = auth();
-  console.log(sessionClaims);
   const fullName = sessionClaims?.fullName;
   const avatar = sessionClaims?.avatar;
   const isAdmin = sessionClaims?.role === "org:admin";
   // const isWriter = sessionClaims?.role === "org:writer";
 
   return (
-    <div className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <Link href="/" className={styles.logo}>
+    <div className="w-full flex justify-center bg-green-300 ">
+      <div className="max-w-7xl w-full p-4 mx-auto h-16 flex justify-between items-center text-gray-700 text-sx font-semibold">
+        <div className="flex">
+          <Link href="/">
             <Image src="/logo.png" alt="logo" width={68} height={68} />
           </Link>
-          <div className={styles.leftContent}>
-            <div className={styles.types}>
-              <div className={styles.txtTypes}>Thể loại</div>
-              <div className={styles.typeMenu}>
-                <div className={styles.column}>
-                  <div className={styles.item}>Tất cả</div>
-                  <div className={styles.item}>Kiếm hiệp</div>
-                  <div className={styles.item}>Huyền Huyễn</div>
-                  <div className={styles.item}>Võng Du</div>
-                  <div className={styles.item}>Đồng Nhân</div>
-                  <div className={styles.item}>Cạnh Kỹ</div>
-                </div>
-                <div className={styles.column}>
-                  <div className={styles.item}>Tiên Hiệp</div>
-                  <div className={styles.item}>Kỳ Ảo</div>
-                  <div className={styles.item}>Khoa Huyễn</div>
-                  <div className={styles.item}>Đô thị</div>
-                  <div className={styles.item}>Đã sử</div>
-                  <div className={styles.item}>Huyền Nghi</div>
+          <div className="flex ml-6">
+            <div className="parent relative hover:bg-green-500 hover:text-white cursor-pointer">
+              <div className="hover-parent h-16 flex">
+                <p className="my-auto m-6 ">Thể loại</p>
+              </div>
+              <div className="child absolute hidden z-50 w-80 bg-white mt-0.5 font-medium text-gray-700">
+                <div className="grid grid-cols-2 p-2">
+                  {novelTypes?.map((item, index) => {
+                    return (
+                      <div
+                        className="px-4 py-1 hover:text-green-500"
+                        key={index}
+                      >
+                        {item.name}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            <div className={styles.rank}>
-              <div className={styles.txtRank}>Bảng xếp hạng</div>
-              <div className={styles.rankMenu}>
-                <div className={styles.item}>Thịnh hành</div>
-                <div className={styles.item}>Đề cử</div>
-                <div className={styles.item}>Đọc nhiều</div>
-                <div className={styles.item}>Yêu thích</div>
+            <div className="parent relative hover:bg-green-500 hover:text-white cursor-pointer">
+              <div className="hover-parent h-16 flex">
+                <p className="my-auto w-40 pl-6">Bảng xếp hạng</p>
+              </div>
+              <div className="child absolute hidden z-50 w-40 bg-white mt-0.5 font-medium text-gray-700">
+                <div className="grid grid-cols-1 p-2">
+                  {novelRanks?.map((item, index) => {
+                    return (
+                      <div
+                        className="px-4 py-1 hover:text-green-500"
+                        key={index}
+                      >
+                        {item.name}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.search}>
+        <div className="flex-1 mx-10 relative max-w-md">
           <input
-            className={styles.inputSearch}
+            className="w-full px-5 py-2 rounded-full border-none focus:outline-none font-normal"
             type="text"
             placeholder="Tìm kiếm truyện..."
           />
-          <IoIosSearch className={styles.searchIcon} size={24} />
+          <IoIosSearch
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer opacity-40"
+            size={24}
+          />
         </div>
 
-        <div className={styles.right}>
-          <div className={styles.postNovel}>
-            <GrUploadOption size={24} />
-            <Link href="/writer/create" className={styles.textPostNovel}>
+        <div className="flex gap-6">
+          <div className="flex my-auto">
+            <Link href="/writer/create" className="flex gap-2">
+              <GrUploadOption size={24} />
               Đăng truyện
             </Link>
           </div>
           {sessionClaims && (
-            <div className={styles.notification}>
+            <Badge className="flex my-auto" badgeContent={4} color="primary">
               <FaBell size={24} />
-              <div className={styles.notificationCount}>1</div>
-            </div>
+            </Badge>
           )}
-          <div className={styles.auth}>
+          <div className="">
             {!sessionClaims ? (
-              <>
+              <div className="flex gap-2 mx-4 font-medium">
                 <Link href="sign-in">Đăng nhập</Link>
                 <span></span>
                 <Link href="sign-up">Đăng ký</Link>
-              </>
+              </div>
             ) : (
-              <div className={styles.account}>
-                <div className={styles.username}>{fullName}</div>
-                <div className={styles.avatar}>
-                  <Image src={avatar} alt="icon login" width={36} height={36} />
+              <div className="parent w-48 relative hover:bg-green-500 hover:text-white cursor-pointer">
+                <div className="hover-parent h-16 flex justify-end">
+                  <div className="flex my-auto">
+                    <p className="flex ml-4 my-auto">{fullName}</p>
+                    <Avatar className="mx-2" src={avatar} alt="avatar" />
+                  </div>
                 </div>
-                <div className={styles.menuAccount}>
-                  <div className={styles.item}>
-                    <ImProfile size={24} />
-                    <Link href="profile">Hồ sơ</Link>
+                <div className="child absolute hidden z-50 w-48 bg-white mt-0.5 font-medium text-gray-700">
+                  <div className="grid grid-cols-1 p-4 gap-2">
+                    {menuAccount?.map((item, index) => {
+                      return (
+                        <div className="flex gap-4" key={index}>
+                          {item.icon}
+                          <Link href={item.slug}>{item.name}</Link>
+                        </div>
+                      );
+                    })}
+                    {isAdmin && (
+                      <div className="flex gap-4">
+                        <RiAdminLine size={24} />
+                        <Link href="admin">Quản lý</Link>
+                      </div>
+                    )}
+                    <SignOutButton className="flex text-red-500 gap-4 pt-2 border-t-2 border-gray-400">
+                      <span>
+                        <RiLogoutBoxRLine size={24} />
+                        Đăng xuất
+                      </span>
+                    </SignOutButton>
                   </div>
-                  <div className={styles.item}>
-                    <BiSolidCabinet size={24} />
-                    <Link href="novel-shelf">Tủ truyện</Link>
-                  </div>
-                  {isAdmin && (
-                    <div className={styles.item}>
-                      <RiAdminLine size={24} />
-                      <Link href="admin">Quản lý</Link>
-                    </div>
-                  )}
-                  <div className={styles.item}>
-                    <IoMdSettings size={24} />
-                    <Link href="setting">Cài đặt</Link>
-                  </div>
-                  <SignOutButton className={styles.logout}>
-                    <span>
-                      <RiLogoutBoxRLine size={24} />
-                      Đăng xuất
-                    </span>
-                  </SignOutButton>
                 </div>
               </div>
             )}

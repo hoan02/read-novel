@@ -8,7 +8,6 @@ export const metadata = {
 export default function AdminLayout({ children }) {
   return (
     <Protect
-      // permission="org:manager"
       role="org:admin"
       fallback={<p>Chỉ có admin mới có quyền truy cập vào nội dung này!!!</p>}
     >

@@ -27,7 +27,10 @@ const Guide = () => {
       <ul>
         {questions.map(({ id, question }) => (
           <li key={id} className="mb-2 flex gap-2 align-center">
-            <Link href={`/guide#${id}`} className="hover:text-green-500">
+            <Link
+              href={`/guide#${id}`}
+              className="text-gray-500 hover:text-green-500"
+            >
               •{" "}
               {question.length > 32
                 ? question.substring(0, 32) + "..."
