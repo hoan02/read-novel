@@ -7,17 +7,18 @@ import { GrUploadOption } from "react-icons/gr";
 
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { RiAdminLine } from "react-icons/ri";
+import { IoIosSwitch } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
-import { novelTypes, novelRanks, menuAccount } from "@/constants/index";
+import { novelTypes, novelRanks, subMenuAccount } from "@/constants/index";
 
 const Header = () => {
   const { sessionClaims } = auth();
   const fullName = sessionClaims?.fullName;
   const avatar = sessionClaims?.avatar;
   const isAdmin = sessionClaims?.role === "org:admin";
-  // const isWriter = sessionClaims?.role === "org:writer";
+  const isWriter = sessionClaims?.role === "org:writer";
 
   return (
     <div className="w-full flex justify-center bg-green-300 ">
@@ -71,7 +72,7 @@ const Header = () => {
 
         <div className="flex-1 mx-10 relative max-w-md">
           <input
-            className="w-full px-5 py-2 rounded-full border-none focus:outline-none font-normal"
+            className="w-full px-5 py-2 rounded-full border-none focus:outline-green-500 font-normal"
             type="text"
             placeholder="Tìm kiếm truyện..."
           />
@@ -83,34 +84,53 @@ const Header = () => {
 
         <div className="flex gap-6">
           <div className="flex my-auto">
-            <Link href="/writer/create" className="flex gap-2">
+            <Link href="/viet-truyen/tao-moi" className="flex gap-2">
               <GrUploadOption size={24} />
               Đăng truyện
             </Link>
           </div>
-          {sessionClaims && (
-            <Badge className="flex my-auto" badgeContent={4} color="primary">
-              <FaBell size={24} />
-            </Badge>
-          )}
-          <div className="">
-            {!sessionClaims ? (
-              <div className="flex gap-2 mx-4 font-medium">
-                <Link href="sign-in">Đăng nhập</Link>
-                <span></span>
-                <Link href="sign-up">Đăng ký</Link>
-              </div>
-            ) : (
+
+          {!sessionClaims ? (
+            <div className="flex gap-2 mx-4 font-medium">
+              <Link href="sign-in">Đăng nhập</Link>
+              <span></span>
+              <Link href="sign-up">Đăng ký</Link>
+            </div>
+          ) : (
+            <>
+              <Badge className="flex my-auto" badgeContent={4} color="primary">
+                <FaBell size={24} />
+              </Badge>
               <div className="parent w-48 relative hover:bg-green-500 hover:text-white cursor-pointer">
                 <div className="hover-parent h-16 flex justify-end">
-                  <div className="flex my-auto">
-                    <p className="flex ml-4 my-auto">{fullName}</p>
+                  <div className="w-full flex my-auto">
+                    <div className="grid columns-1 m-auto">
+                      <p className="text-sm">{fullName}</p>
+                    </div>
                     <Avatar className="mx-2" src={avatar} alt="avatar" />
                   </div>
                 </div>
                 <div className="child absolute hidden z-50 w-48 bg-white mt-0.5 font-medium text-gray-700">
-                  <div className="grid grid-cols-1 p-4 gap-2">
-                    {menuAccount?.map((item, index) => {
+                  <div className="grid grid-cols-1 p-4 gap-4 shadow-md">
+                    <div className="mx-auto">
+                      <p className="text-sm text-red-500 mb-2">
+                        {isAdmin
+                          ? "Admin"
+                          : isWriter
+                          ? "Nhà sáng tác"
+                          : "Đọc giả"}
+                      </p>
+                      <div className="flex text-sm">
+                        <Image
+                          src="/candy.png"
+                          alt="candy"
+                          width={24}
+                          height={24}
+                        />
+                        10
+                      </div>
+                    </div>
+                    {subMenuAccount?.map((item, index) => {
                       return (
                         <div className="flex gap-4" key={index}>
                           {item.icon}
@@ -119,12 +139,12 @@ const Header = () => {
                       );
                     })}
                     {isAdmin && (
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 text-blue-600">
                         <RiAdminLine size={24} />
-                        <Link href="admin">Quản lý</Link>
+                        <Link href="/admin">Quản lý</Link>
                       </div>
                     )}
-                    <SignOutButton className="flex text-red-500 gap-4 pt-2 border-t-2 border-gray-400">
+                    <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
                       <span>
                         <RiLogoutBoxRLine size={24} />
                         Đăng xuất
@@ -133,8 +153,8 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>

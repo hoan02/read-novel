@@ -24,16 +24,15 @@ const Guide = () => {
   return (
     <div className="mt-4">
       <h2 className="mb-2 text-lg font-semibold">Hướng dẫn</h2>
-      <ul>
+      <ul className="list-disc">
         {questions.map(({ id, question }) => (
-          <li key={id} className="mb-2 flex gap-2 align-center">
+          <li key={id} className="ml-6 mb-2">
             <Link
               href={`/guide#${id}`}
               className="text-gray-500 hover:text-green-500"
             >
-              •{" "}
-              {question.length > 32
-                ? question.substring(0, 32) + "..."
+              {question.length > 31
+                ? question.substring(0, 31) + "..."
                 : question}
             </Link>
           </li>

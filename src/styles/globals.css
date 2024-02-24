@@ -20,21 +20,12 @@
   display: block;
 }
 
-.arrow {
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid #ffffff; /* Màu nền cho tam giác */
-}
-
 .cl-rootBox {
   width: 100%;
 }
 
 .cl-card {
-  width: calc(100% - 27px);
-  background-color: #effdf2;
+  width: calc(100% - 28px);
 }
 
 .cl-signIn-root,
@@ -42,6 +33,7 @@
   margin: 220px auto 0;
   width: 440px;
 }
+
 
 .cl-organizationSwitcherPopoverActionButton__createOrganization {
   display: none;

@@ -1,6 +1,10 @@
 import { ImProfile } from "react-icons/im";
 import { BiSolidCabinet } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
+import { MdOutlinePayments } from "react-icons/md";
+import { FaBell } from "react-icons/fa";
+import { MdOutlineSupportAgent } from "react-icons/md";
+import { RiAdminLine } from "react-icons/ri";
 
 export const novelTypes = [
   { name: "Tất cả", slug: "tat-ca" },
@@ -27,12 +31,36 @@ export const novelRanks = [
 ];
 
 export const menuAccount = [
-  { icon: <ImProfile size={24} />, name: "Hồ sơ", slug: "profile" },
+  {
+    icon: <ImProfile size={24} />,
+    name: "Hồ sơ",
+    slug: "/tai-khoan/ho-so",
+  },
   {
     icon: <BiSolidCabinet size={24} />,
     name: "Tủ truyện",
-    slug: "novel-shelf",
+    slug: "/tai-khoan/tu-truyen",
   },
-  { icon: <IoMdSettings size={24} />, name: "Cài đặt", slug: "setting" },
+  {
+    icon: <IoMdSettings size={24} />,
+    name: "Cài đặt",
+    slug: "/tai-khoan/cai-dat",
+  },
+  {
+    icon: <MdOutlinePayments size={24} />,
+    name: "Mua kẹo",
+    slug: "/tai-khoan/mua-keo",
+  },
+  {
+    icon: <FaBell size={24} />,
+    name: "Thông báo",
+    slug: "/tai-khoan/thong-bao",
+  },
+  {
+    icon: <MdOutlineSupportAgent size={24} />,
+    name: "Trợ giúp & Báo lỗi",
+    slug: "/tai-khoan/ho-tro",
+  },
 ];
 
+export const subMenuAccount = menuAccount.slice(0, 4);
