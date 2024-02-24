@@ -84,7 +84,7 @@ const Header = () => {
 
         <div className="flex gap-6">
           <div className="flex my-auto">
-            <Link href="/viet-truyen/tao-moi" className="flex gap-2">
+            <Link href="/writer" className="flex gap-2">
               <GrUploadOption size={24} />
               Đăng truyện
             </Link>
