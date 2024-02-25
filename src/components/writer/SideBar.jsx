@@ -13,14 +13,14 @@ const SideBar = () => {
     <div className="p-4 text-gray-200">
       <Link href="/writer">
         <div className="flex gap-2 cursor-pointer">
-          <Image src="/logo-writer.png" width={48} height={48} />
+          <Image alt="logo writer" src="/logo-writer.png" width={48} height={48} />
           <h1 className="text-3xl my-auto">NovelHub</h1>
         </div>
       </Link>
       <div className="mt-6">
-        <p className="text-sm font-semibold text-gray-400 my-2">
+        <div className="text-sm font-semibold text-gray-400 my-2">
           TRUYỆN CỦA TÔI
-        </p>
+        </div>
         <Link
           href="/writer"
           className="rounded flex gap-2 p-2 hover:bg-amber-600"
@@ -45,9 +45,9 @@ const SideBar = () => {
       </div>
 
       <div className="mt-4">
-        <p className="text-sm font-semibold text-gray-400 my-2">
+        <div className="text-sm font-semibold text-gray-400 my-2">
           BÁO CÁO & HỖ TRỢ
-        </p>
+        </div>
         <Link
           href="/writer/issues"
           className="rounded flex gap-2 p-2 hover:bg-amber-600"
@@ -65,7 +65,7 @@ const SideBar = () => {
       </div>
 
       <div className="mt-4">
-        <p className="text-sm font-semibold text-gray-400 my-2">THÔNG TIN</p>
+        <div className="text-sm font-semibold text-gray-400 my-2">THÔNG TIN</div>
         <Link
           href="/writer/issues"
           className="rounded flex gap-2 p-2 hover:bg-amber-600"

@@ -54,16 +54,16 @@ const ListReading = () => {
               className="w-12 h-16 object-cover "
             />
             <div className="ml-4 flex-grow">
-              <span className="text-sm font-semibold hover:text-green-500 cursor-pointer">
+              <p className="text-sm font-semibold hover:text-green-500 cursor-pointer">
                 {novel.name.length > 28
                   ? novel.name.substring(0, 28) + "..."
                   : novel.name}
-              </span>
+              </p>
               <p className="mt-2 text-sm text-gray-600 flex justify-between">
                 Đã đọc: {novel.readCount}/{novel.totalCount}
-                <span className="text-xs text-red-600 hover:text-green-500 cursor-pointer ml-2">
+                <p className="text-xs text-red-600 hover:text-green-500 cursor-pointer ml-2">
                   Đọc tiếp
-                </span>
+                </p>
               </p>
             </div>
           </div>

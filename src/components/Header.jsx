@@ -7,7 +7,6 @@ import { GrUploadOption } from "react-icons/gr";
 
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { RiAdminLine } from "react-icons/ri";
-import { IoIosSwitch } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
@@ -30,7 +29,7 @@ const Header = () => {
           <div className="flex ml-6">
             <div className="parent relative hover:bg-green-500 hover:text-white cursor-pointer">
               <div className="hover-parent h-16 flex">
-                <p className="my-auto m-6 ">Thể loại</p>
+                <div className="my-auto m-6 ">Thể loại</div>
               </div>
               <div className="child absolute hidden z-50 w-80 bg-white mt-0.5 font-medium text-gray-700">
                 <div className="grid grid-cols-2 p-2">
@@ -50,7 +49,7 @@ const Header = () => {
 
             <div className="parent relative hover:bg-green-500 hover:text-white cursor-pointer">
               <div className="hover-parent h-16 flex">
-                <p className="my-auto w-40 pl-6">Bảng xếp hạng</p>
+                <div className="my-auto w-40 pl-6">Bảng xếp hạng</div>
               </div>
               <div className="child absolute hidden z-50 w-40 bg-white mt-0.5 font-medium text-gray-700">
                 <div className="grid grid-cols-1 p-2">
@@ -93,7 +92,6 @@ const Header = () => {
           {!sessionClaims ? (
             <div className="flex gap-2 mx-4 font-medium">
               <Link href="sign-in">Đăng nhập</Link>
-              <span></span>
               <Link href="sign-up">Đăng ký</Link>
             </div>
           ) : (
@@ -105,7 +103,7 @@ const Header = () => {
                 <div className="hover-parent h-16 flex justify-end">
                   <div className="w-full flex my-auto">
                     <div className="grid columns-1 m-auto">
-                      <p className="text-sm">{fullName}</p>
+                      <div className="text-sm">{fullName}</div>
                     </div>
                     <Avatar className="mx-2" src={avatar} alt="avatar" />
                   </div>
@@ -113,13 +111,13 @@ const Header = () => {
                 <div className="child absolute hidden z-50 w-48 bg-white mt-0.5 font-medium text-gray-700">
                   <div className="grid grid-cols-1 p-4 gap-4 shadow-md">
                     <div className="mx-auto">
-                      <p className="text-sm text-red-500 mb-2">
+                      <div className="text-sm text-red-500 mb-2">
                         {isAdmin
                           ? "Admin"
                           : isWriter
                           ? "Nhà sáng tác"
                           : "Đọc giả"}
-                      </p>
+                      </div>
                       <div className="flex text-sm">
                         <Image
                           src="/candy.png"
@@ -145,10 +143,10 @@ const Header = () => {
                       </div>
                     )}
                     <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
-                      <span>
+                      <div>
                         <RiLogoutBoxRLine size={24} />
                         Đăng xuất
-                      </span>
+                      </div>
                     </SignOutButton>
                   </div>
                 </div>

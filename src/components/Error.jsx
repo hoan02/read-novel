@@ -12,7 +12,7 @@ const Error = ({ message }) => {
         height={200}
       />
       <p className="text-center text-2xl font-medium my-4">Rất tiếc!</p>
-      <p className="text-center">{message}</p>
+      <div className="text-center">{message}</div>
       <div className="flex my-4">
         <Link
           href="/"

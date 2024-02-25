@@ -1,5 +1,5 @@
 const WriterPage = () => {
-  return <div>WriterPage</div>;
+  return <div>oke</div>;
 };
 
 export default WriterPage;
