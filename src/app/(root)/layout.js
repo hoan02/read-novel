@@ -15,20 +15,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="vi"
-      className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
-    >
-      <body className={inter.className}>
-        <Provider>
+    <Provider>
+      <html
+        lang="vi"
+        className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
+      >
+        <body className={inter.className}>
           <Header />
           <Banner />
           <main className="max-w-7xl mx-auto p-4 relative top-52">
             {children}
           </main>
           <Footer />
-        </Provider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Provider>
   );
 }

@@ -1,8 +1,7 @@
 import { Inter } from "next/font/google";
 
 import { Protect } from "@clerk/nextjs";
-import Error from "@/components/Error";
-import Provider from "@/utils/Provider";
+import Error from "@/components/writer/ForbiddenWriter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +18,9 @@ export default function AdminLayout({ children }) {
         <Error message="Chỉ có 'Admin' mới có quyền truy cập vào nội dung này" />
       }
     >
-      <Provider>
-        <html lang="vi">
-          <body className={inter.className}>{children}</body>
-        </html>
-      </Provider>
+      <html lang="vi">
+        <body className={inter.className}>{children}</body>
+      </html>
     </Protect>
   );
 }

@@ -90,7 +90,7 @@ const Header = () => {
           </div>
 
           {!sessionClaims ? (
-            <div className="flex gap-2 mx-4 font-medium">
+            <div className="flex gap-4 mx-4 font-medium">
               <Link href="sign-in">Đăng nhập</Link>
               <Link href="sign-up">Đăng ký</Link>
             </div>
@@ -143,10 +143,10 @@ const Header = () => {
                       </div>
                     )}
                     <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
-                      <div>
+                      <button>
                         <RiLogoutBoxRLine size={24} />
                         Đăng xuất
-                      </div>
+                      </button>
                     </SignOutButton>
                   </div>
                 </div>

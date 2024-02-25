@@ -1,11 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .rightbar {
   width: calc(100vw - 240px);
 }
 
 .content {
   height: calc(100vh - 110px);
+}
+
+.cl-userButtonOuterIdentifier {
+  color: white;
+}
+
+.cl-rootBox {
+  width: max-content;
+}
+
+.cl-organizationSwitcher-root{
+  display: flex;
+}
+
+.cl-organizationSwitcherPopoverCard {
+  width: 260px;
 }
