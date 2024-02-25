@@ -17,7 +17,7 @@ const ForbiddenWriter = () => {
       />
       <p className="text-center text-2xl font-medium my-4">Rất tiếc!</p>
       <p className="text-center">
-        Chỉ có "nhà viết truyện" mới có quyền truy cập vào nội dung này!
+        Chỉ có nhà viết truyện mới có quyền truy cập vào nội dung này!
       </p>
       <p className="text-center">
         Nếu bạn muốn trở thành nhà viết truyện hãy liên hệ với:

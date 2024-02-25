@@ -1,9 +1,11 @@
 import { Inter } from "next/font/google";
 
+import { ClerkProvider } from "@clerk/nextjs";
+import { viVN } from "@clerk/localizations";
+
 import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
-import Provider from "@/utils/Provider";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <Provider>
+    <ClerkProvider localization={viVN}>
       <html
         lang="vi"
         className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
@@ -29,6 +31,6 @@ export default function RootLayout({ children }) {
           <Footer />
         </body>
       </html>
-    </Provider>
+    </ClerkProvider>
   );
 }

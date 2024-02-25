@@ -20,24 +20,17 @@ export default function WriterLayout({ children }) {
       // role="org:writer"
       fallback={<ForbiddenWriter />}
     >
-      <html
-        lang="vi"
-        className="scrollbar-thumb-zinc-700 scrollbar-track-zinc-600"
-      >
-        <body className={inter.className}>
-          <div className="h-screen w-full bg-zinc-800 text-white">
-            <div className="w-60 h-full bg-zinc-700 fixed">
-              <SideBar />
-            </div>
-            <div className="rightbar h-full fixed top-0 left-60">
-              <TopBar />
-              <div className="content m-4 p-4 bg-zinc-700 rounded scrollbar-thin h-32 overflow-y-scroll">
-                {children}
-              </div>
-            </div>
+      <div className="min-h-screen min-w-screen fixed top-0 left-0 scrollbar-thumb-zinc-700 scrollbar-track-zinc-600 text-white">
+        <div className="w-60 h-full bg-zinc-700 fixed">
+          <SideBar />
+        </div>
+        <div className="rightbar h-full fixed top-0 left-60 bg-zinc-800">
+          <TopBar />
+          <div className="content m-4 p-4 bg-zinc-700 rounded scrollbar-thin h-32 overflow-y-scroll">
+            {children}
           </div>
-        </body>
-      </html>
+        </div>
+      </div>
     </Protect>
   );
 }

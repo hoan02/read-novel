@@ -38,6 +38,10 @@
   display: none;
 }
 
+.cl-userButtonPopoverCard{
+  width: 280px;
+}
+
 /* .cl-organizationSwitcherPopoverCard {
   width: 400px;
 } */
