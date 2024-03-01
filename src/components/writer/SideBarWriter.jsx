@@ -8,12 +8,17 @@ import { BiSupport } from "react-icons/bi";
 import { TbMessageCircleQuestion } from "react-icons/tb";
 import { FaDev } from "react-icons/fa";
 
-const SideBar = () => {
+const SideBarWriter = () => {
   return (
     <div className="p-4 text-gray-200">
       <Link href="/writer">
         <div className="flex gap-2 cursor-pointer">
-          <Image alt="logo writer" src="/logo-writer.png" width={48} height={48} />
+          <Image
+            alt="logo writer"
+            src="/logo-writer.png"
+            width={48}
+            height={48}
+          />
           <h1 className="text-3xl my-auto">NovelHub</h1>
         </div>
       </Link>
@@ -65,7 +70,9 @@ const SideBar = () => {
       </div>
 
       <div className="mt-4">
-        <div className="text-sm font-semibold text-gray-400 my-2">THÔNG TIN</div>
+        <div className="text-sm font-semibold text-gray-400 my-2">
+          THÔNG TIN
+        </div>
         <Link
           href="/writer/issues"
           className="rounded flex gap-2 p-2 hover:bg-amber-600"
@@ -85,4 +92,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default SideBarWriter;

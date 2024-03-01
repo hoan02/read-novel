@@ -30,7 +30,7 @@ const NovelSchema = new mongoose.Schema(
     },
     uploader: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Novel",
+      ref: "User",
     },
     description: {
       type: String,
@@ -61,6 +61,10 @@ const NovelSchema = new mongoose.Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    chapters: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
+      default: [],
     },
   },
   { timestamps: true }

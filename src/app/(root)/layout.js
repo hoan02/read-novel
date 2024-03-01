@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
+import TanstackProvider from "@/providers/TanstackProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,20 +18,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider localization={viVN}>
-      <html
-        lang="vi"
-        className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
-      >
+    <html
+      lang="vi"
+      className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
+    >
+      <ClerkProvider localization={viVN}>
         <body className={inter.className}>
-          <Header />
-          <Banner />
-          <main className="max-w-7xl mx-auto p-4 relative top-52">
-            {children}
-          </main>
-          <Footer />
+          <TanstackProvider>
+            <Header />
+            <Banner />
+            <main className="max-w-7xl mx-auto p-4 relative top-52">
+              {children}
+            </main>
+            <Footer />
+          </TanstackProvider>
         </body>
-      </html>
-    </ClerkProvider>
+      </ClerkProvider>
+    </html>
   );
 }

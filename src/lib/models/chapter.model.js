@@ -21,10 +21,6 @@ const ChapterSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  ChapterId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Chapter",
-  },
   isLock: {
     type: Boolean,
     default: false,
@@ -35,7 +31,7 @@ const ChapterSchema = new mongoose.Schema({
   },
 });
 
-const Chapter = mongoose.models.Chapter || mongoose.model("Chapter", ChapterSchema);
+const Chapter =
+  mongoose.models.Chapter || mongoose.model("Chapter", ChapterSchema);
 
 export default Chapter;
-

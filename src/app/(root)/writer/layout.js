@@ -1,12 +1,8 @@
-import { Inter } from "next/font/google";
-
-import SideBar from "@/components/writer/SideBar";
-import TopBar from "@/components/writer/TopBar";
+import TopBar from "@/components/TopBar";
 import { Protect } from "@clerk/nextjs";
 import "@/styles/writer.css";
 import ForbiddenWriter from "@/components/writer/ForbiddenWriter";
-
-const inter = Inter({ subsets: ["latin"] });
+import SideBarWriter from "@/components/writer/SideBarWriter";
 
 export const metadata = {
   title: "Writer dashboard",
@@ -20,9 +16,9 @@ export default function WriterLayout({ children }) {
       // role="org:writer"
       fallback={<ForbiddenWriter />}
     >
-      <div className="min-h-screen min-w-screen fixed top-0 left-0 scrollbar-thumb-zinc-700 scrollbar-track-zinc-600 text-white">
+      <div className="min-h-screen min-w-screen fixed top-0 left-0 scrollbar-thumb-zinc-700 scrollbar-track-zinc-600 text-white z-50">
         <div className="w-60 h-full bg-zinc-700 fixed">
-          <SideBar />
+          <SideBarWriter />
         </div>
         <div className="rightbar h-full fixed top-0 left-60 bg-zinc-800">
           <TopBar />

@@ -1,7 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { auth, SignOutButton } from "@clerk/nextjs";
-
+import { useUser, useAuth, SignOutButton } from "@clerk/nextjs";
 import { FaBell } from "react-icons/fa";
 import { GrUploadOption } from "react-icons/gr";
 
@@ -13,11 +14,10 @@ import Avatar from "@mui/material/Avatar";
 import { novelTypes, novelRanks, subMenuAccount } from "@/constants/index";
 
 const Header = () => {
-  const { sessionClaims } = auth();
-  const fullName = sessionClaims?.fullName;
-  const avatar = sessionClaims?.avatar;
-  const isAdmin = sessionClaims?.role === "org:admin";
-  const isWriter = sessionClaims?.role === "org:writer";
+  const { isLoaded, isSignedIn, user } = useUser();
+  const { orgRole } = useAuth();
+  const fullName = user?.fullName;
+  const avatar = user?.imageUrl;
 
   return (
     <div className="w-full flex justify-center bg-green-300 ">
@@ -89,7 +89,7 @@ const Header = () => {
             </Link>
           </div>
 
-          {!sessionClaims ? (
+          {!isLoaded || !isSignedIn ? (
             <div className="flex gap-4 mx-4 font-medium">
               <Link href="sign-in">Đăng nhập</Link>
               <Link href="sign-up">Đăng ký</Link>
@@ -112,9 +112,9 @@ const Header = () => {
                   <div className="grid grid-cols-1 p-4 gap-4 shadow-md">
                     <div className="mx-auto">
                       <div className="text-sm text-red-500 mb-2">
-                        {isAdmin
+                        {orgRole === "org:admin"
                           ? "Admin"
-                          : isWriter
+                          : orgRole === "org:writer"
                           ? "Nhà sáng tác"
                           : "Đọc giả"}
                       </div>
@@ -136,18 +136,20 @@ const Header = () => {
                         </div>
                       );
                     })}
-                    {isAdmin && (
+                    {orgRole === "org:admin" && (
                       <div className="flex gap-4 text-blue-600">
                         <RiAdminLine size={24} />
                         <Link href="/admin">Quản lý</Link>
                       </div>
                     )}
-                    <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
-                      <button>
-                        <RiLogoutBoxRLine size={24} />
-                        Đăng xuất
-                      </button>
-                    </SignOutButton>
+                    {isSignedIn && (
+                      <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
+                        <button>
+                          <RiLogoutBoxRLine size={24} />
+                          Đăng xuất
+                        </button>
+                      </SignOutButton>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,14 +1,11 @@
-import InvitationList from "@/components/writer/InvitationList";
-import { OrganizationProfile } from "@clerk/nextjs";
+import ListMembers from "@/components/admin/ListMembers";
 
-const AdminPage = () => {
+const WriterPage = () => {
   return (
-    <div className="w-full h-full">
-      <OrganizationProfile />
-      <InvitationList />
-      oke
+    <div>
+      <ListMembers />
     </div>
   );
 };
 
-export default AdminPage;
+export default WriterPage;
