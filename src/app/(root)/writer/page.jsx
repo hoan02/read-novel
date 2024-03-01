@@ -1,9 +1,9 @@
-import ListMyNovels from "@/components/writer/ListMyNovels";
+import TermsOfService from "@/components/TermsOfService";
 
 const WriterPage = () => {
   return (
     <div>
-      <ListMyNovels />
+      <TermsOfService />
     </div>
   );
 };

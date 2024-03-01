@@ -1,9 +1,9 @@
-import ListMembers from "@/components/admin/ListMembers";
+import TermsOfService from "@/components/TermsOfService";
 
 const WriterPage = () => {
   return (
     <div>
-      <ListMembers />
+      <TermsOfService />
     </div>
   );
 };

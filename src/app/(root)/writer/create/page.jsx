@@ -1,9 +1,21 @@
-"use client"
+"use client";
 
 import { useState } from "react";
-import { Grid, Typography, TextField, FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 
 const CreateNovel = () => {
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
   const [novelName, setNovelName] = useState("");
   const [genre, setGenre] = useState("");
   const [introduction, setIntroduction] = useState("");
@@ -28,9 +40,12 @@ const CreateNovel = () => {
   };
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 bg-zinc-700 p-4 rounded-lg"
+        >
           <TextField
             id="novelName"
             label="Tên truyện"
@@ -57,6 +72,15 @@ const CreateNovel = () => {
             </Select>
           </FormControl>
           <TextField
+            id="novelName"
+            label="Tên tác giả"
+            variant="outlined"
+            fullWidth
+            value={novelName}
+            onChange={handleNovelNameChange}
+            required
+          />
+          <TextField
             id="introduction"
             label="Giới thiệu"
             variant="outlined"
@@ -67,22 +91,63 @@ const CreateNovel = () => {
             onChange={handleIntroductionChange}
             required
           />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
+          <FormControlLabel
+            required
+            control={
+              <Checkbox
+                checked={agreedToTerms}
+                onChange={() => setAgreedToTerms(!agreedToTerms)}
+              />
+            }
+            label="Tôi đồng ý với các điều khoản và quy định khi đăng truyện"
+          />
+
+          <Button type="submit" variant="contained" fullWidth>
             Tạo truyện
           </Button>
         </form>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Typography variant="h6" gutterBottom>Điều Khoản Dịch Vụ</Typography>
-        <Typography variant="body1">
-          Khi tham gia sử dụng dịch vụ cung cấp bởi Mê Truyện Chữ, bạn phải đồng ý và tuân thủ các quy định sau...
-          [Nội dung điều khoản dịch vụ ở đây]
-        </Typography>
+        <div className="bg-zinc-700 p-4 rounded-lg text-gray-300">
+          <p className="text-lg font-bold">Quy định khi đăng truyện</p>
+          <ol className="list-decimal ml-6 mt-4">
+            <li>
+              Không được phép đăng các truyện liên quan tới chính trị, tôn giáo,
+              tình dục, sắc hiệp, dâm hiệp, nói xấu Việt Nam.
+            </li>
+            <li>
+              Chỉ được đăng các truyện do bạn tự sáng tác hoặc bạn có quyền sử
+              dụng.
+            </li>
+            <li>
+              Nội dung giới thiệu truyện và nội dung chương truyện trình bày
+              phải phân đoạn rõ ràng, nếu viết thành 1 khối dày đặc chữ sẽ bị
+              xóa.
+            </li>
+            <li>
+              Không được quảng cáo các trang web, nền tảng, dịch vụ khác dưới
+              mọi hình thức.
+            </li>
+            <li>
+              Không được đưa thông tin donate/ủng hộ của các trang web, nền
+              tảng, dịch vụ khác dưới mọi hình thức.
+            </li>
+            <li>
+              Ảnh bìa truyện không có các hình ảnh khiêu dâm, kích dục, kích
+              động, thù hằn, ám chỉ đến tôn giáo, chính trị, các hoạt động bị
+              cấm bởi pháp luật.
+            </li>
+            <li>
+              Tất cả truyện bạn đăng lên Mê Truyện Chữ có bản quyền thuộc về cá
+              nhân của bạn, Mê Truyện Chữ không có quyền lợi hay nghĩa vụ đăng
+              ký bản quyền hộ bạn. Khi đăng truyện lên hệ thống bạn cho phép Mê
+              Truyện Chữ và các website thuộc hệ thống quyền khai thác quảng cáo
+              và quyền thu hộ trả phí (mở khóa) các chương truyện trên các
+              truyện bạn đã đăng.
+            </li>
+          </ol>
+          <p class="italic text-sm mt-6">Cập nhật lần cuối ngày 05/01/2024</p>
+        </div>
       </Grid>
     </Grid>
   );

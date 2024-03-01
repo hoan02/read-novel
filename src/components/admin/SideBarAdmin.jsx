@@ -1,16 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { IoMdPeople } from "react-icons/io"; 
-import { IoMdSettings } from "react-icons/io"; 
-import { IoIosStats } from "react-icons/io"; 
-import { IoIosHelpCircle } from "react-icons/io"; 
-import { AiOutlineInfoCircle } from "react-icons/ai"; 
+import { IoMdPeople } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io";
+import { IoIosStats } from "react-icons/io";
+import { IoIosHelpCircle } from "react-icons/io";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { usePathname } from "next/navigation";
 
 const SideBarAdmin = () => {
+  const currentPath = usePathname();
+
+  const isActive = (path) => {
+    return currentPath === path ? "bg-amber-600" : "";
+  };
+
   return (
     <div className="p-4 text-gray-200">
       <Link href="/admin">
-        <div className="flex gap-2 cursor-pointer">
+        <div className={`flex gap-2 cursor-pointer ${isActive("/admin")}`}>
           <Image
             alt="logo writer"
             src="/logo-writer.png"
@@ -24,21 +33,23 @@ const SideBarAdmin = () => {
         <div className="text-sm font-semibold text-gray-400 my-2">QUẢN LÝ</div>
         <Link
           href="/admin/members"
-          className="rounded flex gap-2 p-2 hover:bg-amber-600"
+          className={`rounded flex gap-2 p-2 ${isActive("/admin/members")}`}
         >
           <IoMdPeople size={28} />
           Thành viên
         </Link>
         <Link
           href="/admin/settings"
-          className="rounded flex gap-2 p-2 hover:bg-amber-600"
+          className={`rounded flex gap-2 p-2 ${isActive("/admin/settings")}`}
         >
           <IoMdSettings size={28} />
           Cài đặt
         </Link>
         <Link
           href="/admin/system-stats"
-          className="rounded flex gap-2 p-2 hover:bg-amber-600"
+          className={`rounded flex gap-2 p-2 ${isActive(
+            "/admin/system-stats"
+          )}`}
         >
           <IoIosStats size={28} />
           Thống kê hệ thống
@@ -51,7 +62,7 @@ const SideBarAdmin = () => {
         </div>
         <Link
           href="/admin/help"
-          className="rounded flex gap-2 p-2 hover:bg-amber-600"
+          className={`rounded flex gap-2 p-2 ${isActive("/admin/help")}`}
         >
           <IoIosHelpCircle size={28} />
           Trợ giúp & Hỗ trợ
@@ -64,7 +75,7 @@ const SideBarAdmin = () => {
         </div>
         <Link
           href="/admin/info"
-          className="rounded flex gap-2 p-2 hover:bg-amber-600"
+          className={`rounded flex gap-2 p-2 ${isActive("/admin/info")}`}
         >
           <AiOutlineInfoCircle size={28} />
           Thông tin hệ thống

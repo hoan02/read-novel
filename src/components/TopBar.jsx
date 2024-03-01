@@ -4,7 +4,7 @@ import { UserButton } from "@clerk/nextjs";
 
 const TopBar = () => {
   return (
-    <div className="h-16 bg-zinc-700 m-4 p-4 rounded flex justify-between items-center">
+    <div className="h-16 bg-zinc-700 m-4 p-4 rounded-lg flex justify-between items-center">
       <Link
         href="/"
         className="flex gap-1 cursor-pointer hover:text-gray-300 items-center"

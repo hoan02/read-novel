@@ -5,6 +5,7 @@ import TopBar from "@/components/TopBar";
 import { Protect } from "@clerk/nextjs";
 import "@/styles/writer.css";
 import ForbiddenAdmin from "@/components/admin/ForbiddenAdmin";
+import CustomThemeProvider from "@/components/CustomThemeProvider";
 
 export const metadata = {
   title: "Admin dashboard",
@@ -24,8 +25,10 @@ export default function WriterLayout({ children }) {
         </div>
         <div className="rightbar h-full fixed top-0 left-60 bg-zinc-800">
           <TopBar />
-          <div className="content m-4 p-4 bg-zinc-700 rounded scrollbar-thin h-32 overflow-y-scroll">
-            {children}
+          <div className="content ml-4 scrollbar-thin h-32 overflow-y-scroll">
+            <CustomThemeProvider>
+              <div className="mr-4">{children}</div>
+            </CustomThemeProvider>
           </div>
         </div>
       </div>
