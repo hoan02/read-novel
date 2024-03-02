@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { createOrUpdateUser, deleteUser } from "@/lib/actions/user.action";
 import { clerkClient } from "@clerk/nextjs";
+import { handle } from "@/lib/actions/test.action";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -55,16 +56,8 @@ export async function POST(req) {
   const eventType = evt?.type;
 
   if (eventType === "user.created") {
-    const { id, email_addresses } = evt?.data;
-    console.log(id);
     try {
-      const res = await clerkClient.organizations.createOrganizationInvitation({
-        organizationId: process.env.ORGANIZATION_ID,
-        inviterUserId: id,
-        emailAddress: email_addresses,
-        role: "org:member",
-      });
-      console.log(res);
+      await handle();
     } catch (err) {
       console.log(err);
     }

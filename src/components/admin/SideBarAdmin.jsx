@@ -19,7 +19,7 @@ const SideBarAdmin = () => {
   return (
     <div className="p-4 text-gray-200">
       <Link href="/admin">
-        <div className={`flex gap-2 cursor-pointer ${isActive("/admin")}`}>
+        <div className="flex gap-2 cursor-pointer">
           <Image
             alt="logo writer"
             src="/logo-writer.png"
@@ -32,8 +32,8 @@ const SideBarAdmin = () => {
       <div className="mt-6">
         <div className="text-sm font-semibold text-gray-400 my-2">QUẢN LÝ</div>
         <Link
-          href="/admin/members"
-          className={`rounded flex gap-2 p-2 ${isActive("/admin/members")}`}
+          href="/admin/users"
+          className={`rounded flex gap-2 p-2 ${isActive("/admin/users")}`}
         >
           <IoMdPeople size={28} />
           Thành viên

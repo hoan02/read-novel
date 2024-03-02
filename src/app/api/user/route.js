@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { currentUser, auth } from "@clerk/nextjs";
+import { currentUser, auth, clerkClient } from "@clerk/nextjs";
 
 export async function GET() {
   const { userId } = auth();
@@ -9,3 +9,7 @@ export async function GET() {
   const user = await currentUser();
   return NextResponse.json({ user: user }, { status: 200 });
 }
+// export async function GET() {
+//   const users = await clerkClient.users.getUserList();
+//   return NextResponse.json({ users }, { status: 200 });
+// }

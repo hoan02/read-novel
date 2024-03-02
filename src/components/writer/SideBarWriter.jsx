@@ -36,18 +36,18 @@ const SideBarWriter = () => {
           TRUYỆN CỦA TÔI
         </div>
         <Link
-          href="/writer/published"
-          className={`rounded flex gap-2 p-2 ${isActive("/writer/published")}`}
-        >
-          <PiBooks size={28} />
-          Đã đăng
-        </Link>
-        <Link
           href="/writer/create"
           className={`rounded flex gap-2 p-2 ${isActive("/writer/create")}`}
         >
           <TbBookUpload size={28} />
           Thêm mới
+        </Link>
+        <Link
+          href="/writer/published"
+          className={`rounded flex gap-2 p-2 ${isActive("/writer/published")}`}
+        >
+          <PiBooks size={28} />
+          Đã đăng
         </Link>
         <Link
           href="/writer/statistics"
