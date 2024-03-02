@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+// import Chapter from "@/lib/models/chapter.model";
 
 const NovelSchema = new mongoose.Schema(
   {
@@ -24,14 +25,14 @@ const NovelSchema = new mongoose.Schema(
       require: true,
       default: 0,
     },
-    image: {
-      type: String,
-      require: true,
-    },
-    uploader: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    // image: {
+    //   type: String,
+    //   require: true,
+    // },
+    // uploader: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    // },
     description: {
       type: String,
       require: true,
@@ -53,25 +54,36 @@ const NovelSchema = new mongoose.Schema(
       require: true,
       default: "Đang ra",
     },
-    url: {
-      type: String,
-      require: true,
-    },
+    // url: {
+    //   type: String,
+    //   require: true,
+    // },
     numberOfChapter: {
       type: Number,
       required: true,
       default: 0,
     },
-    chapters: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
-      default: [],
-    },
+    // chapters: {
+    //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
+    //   default: [],
+    // },
   },
   { timestamps: true }
 );
 
-NovelSchema.index({ name: "text" });
+// NovelSchema.index({ name: "text" });
 
-const Novel = mongoose.models.Novel || mongoose.model("Novel", NovelSchema);
+// NovelSchema.pre("remove", async function (next) {
+//   try {
+//     for (const id of this.chapters) {
+//       await Chapter.findByIdAndDelete(id);
+//     }
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+const Novel = mongoose.models?.Novel || mongoose.model("Novel", NovelSchema);
 
 export default Novel;

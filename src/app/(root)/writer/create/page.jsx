@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Grid,
   TextField,
@@ -12,96 +11,55 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { novelTypes } from "@/constants";
+import { createNovel } from "@/lib/actions/novel.action";
 
 const CreateNovel = () => {
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-  const [novelName, setNovelName] = useState("");
-  const [genre, setGenre] = useState("");
-  const [introduction, setIntroduction] = useState("");
-
-  const handleNovelNameChange = (e) => {
-    setNovelName(e.target.value);
-  };
-
-  const handleGenreChange = (e) => {
-    setGenre(e.target.value);
-  };
-
-  const handleIntroductionChange = (e) => {
-    setIntroduction(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Tên truyện:", novelName);
-    console.log("Thể loại:", genre);
-    console.log("Giới thiệu:", introduction);
-  };
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
         <form
-          onSubmit={handleSubmit}
           className="space-y-4 bg-zinc-700 p-4 rounded-lg"
+          action={createNovel}
         >
           <TextField
-            id="novelName"
+            name="name"
             label="Tên truyện"
             variant="outlined"
             fullWidth
-            value={novelName}
-            onChange={handleNovelNameChange}
             required
           />
           <FormControl fullWidth required>
-            <InputLabel id="genre-label">Thể loại</InputLabel>
-            <Select
-              labelId="genre-label"
-              id="genre"
-              value={genre}
-              onChange={handleGenreChange}
-              label="Thể loại"
-            >
-              <MenuItem value="Hanhdong">Hành động</MenuItem>
-              <MenuItem value="Phieuluu">Phiêu lưu</MenuItem>
-              <MenuItem value="Kinhdi">Kinh dị</MenuItem>
-              <MenuItem value="Tinhcam">Tình cảm</MenuItem>
-              <MenuItem value="Haihuoc">Hài hước</MenuItem>
+            <InputLabel>Thể loại</InputLabel>
+            <Select name="type" label="Thể loại">
+              {novelTypes.map((item, index) => (
+                <MenuItem key={index} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <TextField
-            id="novelName"
+            name="author"
             label="Tên tác giả"
             variant="outlined"
             fullWidth
-            value={novelName}
-            onChange={handleNovelNameChange}
             required
           />
           <TextField
-            id="introduction"
+            name="description"
             label="Giới thiệu"
             variant="outlined"
             fullWidth
             multiline
             rows={4}
-            value={introduction}
-            onChange={handleIntroductionChange}
             required
           />
           <FormControlLabel
             required
-            control={
-              <Checkbox
-                checked={agreedToTerms}
-                onChange={() => setAgreedToTerms(!agreedToTerms)}
-              />
-            }
+            control={<Checkbox />}
             label="Tôi đồng ý với các điều khoản và quy định khi đăng truyện"
           />
-
           <Button type="submit" variant="contained" fullWidth>
             Tạo truyện
           </Button>
@@ -146,7 +104,9 @@ const CreateNovel = () => {
               truyện bạn đã đăng.
             </li>
           </ol>
-          <p class="italic text-sm mt-6">Cập nhật lần cuối ngày 05/01/2024</p>
+          <p className="italic text-sm mt-6">
+            Cập nhật lần cuối ngày 05/01/2024
+          </p>
         </div>
       </Grid>
     </Grid>

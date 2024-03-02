@@ -2,14 +2,14 @@ const TermsOfService = () => {
   return (
     <div className="bg-zinc-700 p-4 rounded-lg">
       <div>
-        <div class="text-gray-300 text-lg font-bold">Điều Khoản Dịch Vụ</div>
-        <div class="text-gray-400 text-sm">16:44 - 05/01/2024</div>
+        <div className="text-gray-300 text-lg font-bold">Điều Khoản Dịch Vụ</div>
+        <div className="text-gray-400 text-sm">16:44 - 05/01/2024</div>
       </div>
-      <div class="mt-4 text-gray-300" id="topic-detail">
+      <div className="mt-4 text-gray-300" id="topic-detail">
         <div>
           <div>
             Khi tham gia sử dụng dịch vụ cung cấp bởi
-            <span class="font-bold"> Đọc truyện online</span>, bạn phải đồng ý
+            <span className="font-bold"> Đọc truyện online</span>, bạn phải đồng ý
             và tuân thủ các quy định sau.
           </div>
           <div className="mt-4">
@@ -20,12 +20,12 @@ const TermsOfService = () => {
           <div className="mt-4">Quy định này gồm 2 bên:</div>
           <ul className="list-disc ml-6">
             <li className="mt-2">
-              <span class="font-bold">Đọc truyện online</span> cung cấp dịch vụ
+              <span className="font-bold">Đọc truyện online</span> cung cấp dịch vụ
               trên internet.
             </li>
             <li>
               Khách hàng gọi tắt là KH, sử dụng dịch vụ của
-              <span class="font-bold"> Đọc truyện online</span>trên internet.
+              <span className="font-bold"> Đọc truyện online</span>trên internet.
             </li>
           </ul>
 
@@ -34,7 +34,7 @@ const TermsOfService = () => {
             <li>
               Không được có những từ ngữ gay gắt, đả kích, xúc phạm, bêu xấu cá
               nhân và tổ chức trên
-              <span class="font-bold"> Đọc truyện online</span>.
+              <span className="font-bold"> Đọc truyện online</span>.
             </li>
             <li>
               Không phát tán và truyền bá thông tin bất hợp pháp, lừa gạt, bôi
@@ -49,7 +49,7 @@ const TermsOfService = () => {
             <li>Không được dẫn link hoặc nhắc đến website khác.</li>
             <li>
               Không spam tin nhắn, bình luận, bài viết hay bất cứ hình thức nào
-              tại <span class="font-bold"> Đọc truyện online</span>.
+              tại <span className="font-bold"> Đọc truyện online</span>.
             </li>
             <li>Đánh giá và bình luận phải sử dụng tiếng việt có dấu.</li>
             <li>
@@ -66,12 +66,12 @@ const TermsOfService = () => {
             </li>
             <li>
               Không tận dụng các bugs (lỗi) của chương trình nhằm phá hoại sự ổn
-              định của <span class="font-bold"> Đọc truyện online</span>.
+              định của <span className="font-bold"> Đọc truyện online</span>.
             </li>
             <li>
               Sẽ khóa vĩnh viễn các tài khoản copy truyện thu phí ra ngoài mà
               không được sự cho phép bằng văn bản của{" "}
-              <span class="font-bold"> Đọc truyện online</span>.
+              <span className="font-bold"> Đọc truyện online</span>.
             </li>
             <li>
               Quy định về mức phạt đối với thành viên vi phạm nội quy là do ban

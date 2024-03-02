@@ -52,6 +52,5 @@ export const deleteUser = async (id) => {
   } catch (error) {
     console.error(error);
     throw new Error("Failed to delete user!");
-
   }
 };

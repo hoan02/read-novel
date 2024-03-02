@@ -4,7 +4,6 @@ import { IoMdSettings } from "react-icons/io";
 import { MdOutlinePayments } from "react-icons/md";
 import { FaBell } from "react-icons/fa";
 import { MdOutlineSupportAgent } from "react-icons/md";
-import { RiAdminLine } from "react-icons/ri";
 
 export const novelTypes = [
   { name: "Tất cả", slug: "tat-ca" },
