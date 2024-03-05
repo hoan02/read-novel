@@ -1,6 +1,17 @@
 import User from "@/lib/models/user.model";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 
+export const getUserById = async (id) => {
+  try {
+    await connectToDB();
+    const user = await User.findOne({ clerkId: id });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch user!");
+  }
+};
+
 export const getUsers = async () => {
   try {
     await connectToDB();

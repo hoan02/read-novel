@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Grid,
   TextField,
@@ -11,16 +13,53 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { toast } from "react-toastify";
+
 import { novelTypes } from "@/constants";
 import { createNovel } from "@/lib/actions/novel.action";
+import { createImage } from "@/lib/actions/cloudinary.action";
 
 const CreateNovel = () => {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+    author: "",
+    description: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    const url = await createImage(file);
+
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await createNovel(formData);
+      toast.success("Truyện đã được tạo thành công!");
+      router.push("/writer/published");
+    } catch (error) {
+      console.error(error);
+      toast.error("Đã xảy ra lỗi khi tạo truyện!");
+    }
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
         <form
           className="space-y-4 bg-zinc-700 p-4 rounded-lg"
-          action={createNovel}
+          onSubmit={handleSubmit}
         >
           <TextField
             name="name"
@@ -28,10 +67,17 @@ const CreateNovel = () => {
             variant="outlined"
             fullWidth
             required
+            value={formData.name}
+            onChange={handleChange}
           />
           <FormControl fullWidth required>
             <InputLabel>Thể loại</InputLabel>
-            <Select name="type" label="Thể loại">
+            <Select
+              name="type"
+              label="Thể loại"
+              value={formData.type}
+              onChange={handleChange}
+            >
               {novelTypes.map((item, index) => (
                 <MenuItem key={index} value={item.name}>
                   {item.name}
@@ -45,6 +91,8 @@ const CreateNovel = () => {
             variant="outlined"
             fullWidth
             required
+            value={formData.author}
+            onChange={handleChange}
           />
           <TextField
             name="description"
@@ -54,6 +102,17 @@ const CreateNovel = () => {
             multiline
             rows={4}
             required
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Chọn ảnh bìa"
+            type="file"
+            fullWidth
+            onChange={handleFileChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <FormControlLabel
             required

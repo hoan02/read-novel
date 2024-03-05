@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import Chapter from "@/lib/models/chapter.model";
+import Chapter from "@/lib/models/chapter.model";
 
 const NovelSchema = new mongoose.Schema(
   {
@@ -29,10 +29,10 @@ const NovelSchema = new mongoose.Schema(
     //   type: String,
     //   require: true,
     // },
-    // uploader: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    // },
+    uploader: {
+      type: String,
+      require: true,
+    },
     description: {
       type: String,
       require: true,
@@ -63,12 +63,13 @@ const NovelSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    // chapters: {
-    //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
-    //   default: [],
-    // },
+    chapters: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
+      default: [],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
+  { versionKey: false }
 );
 
 // NovelSchema.index({ name: "text" });

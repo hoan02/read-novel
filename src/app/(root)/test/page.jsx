@@ -1,20 +1,16 @@
 "use client";
 
+import { toast } from "react-toastify";
 import { useUser } from "@clerk/nextjs";
-
-import { handle } from "@/lib/actions/test.action";
+import { CldUploadWidget } from "next-cloudinary";
+import ImageCrop from "@/components/ImageCrop";
 
 const Test = () => {
-  const { user, isLoaded, isSignedIn } = useUser();
-  if (!isLoaded || !isSignedIn) {
-    return null;
-  }
-  const id = user?.id;
-  const emailAddress = user?.emailAddresses[0].emailAddress;
-
   return (
-    <div className="bg-white">
-      <button onClick={handle}>Invite</button>
+    <div className="bg-white w-full h-96">
+      <ImageCrop />
+
+    
     </div>
   );
 };

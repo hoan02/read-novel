@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "@/styles/globals.css";
 import Header from "@/components/Header";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
+          <ToastContainer autoClose={3000} theme="light"/>
         </body>
       </ClerkProvider>
     </html>
