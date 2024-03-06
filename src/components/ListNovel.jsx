@@ -5,13 +5,14 @@ import Chip from "@mui/material/Chip";
 import { FaUserEdit } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@mui/material/Skeleton";
+import Image from "next/image";
 
 import newRequest from "@/utils/newRequest";
 
 const ListNovel = () => {
   const fetchDataNovels = async () => {
     try {
-      const res = await newRequest("http://localhost:3000/api/novels");
+      const res = await newRequest(`novels`);
       return res.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -63,10 +64,12 @@ const ListNovel = () => {
               key={index}
               className="flex items-center justify-center bg-gray-100 p-4 rounded"
             >
-              <img
+              <Image
                 src={novel.urlCover}
                 alt={novel.name}
-                className="w-24 h-32 object-cover"
+                width={96}
+                height={128}
+                className="object-cover"
               />
               <div className="ml-4">
                 <Link

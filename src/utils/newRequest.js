@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const baseUrl = process.env.BASE_URL;
-
 const newRequest = axios.create({
-  baseURL: `${baseUrl}api/`,
+  baseURL: "https://read-novel-phi.vercel.app/api/",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

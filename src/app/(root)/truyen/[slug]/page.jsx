@@ -11,7 +11,7 @@ const SingleNovelPage = () => {
   const { slug } = useParams();
   const fetchDataNovel = async () => {
     try {
-      const res = await newRequest(`http://localhost:3000/api/novels/${slug}`);
+      const res = await newRequest(`novels/${slug}`);
       return res.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -45,10 +45,7 @@ const SingleNovelPage = () => {
                 {novel.name}
               </a>
             </h1>
-            <a
-              href="javascript:void(0)"
-              className="text-tertiary fz-13 mt-1"
-            >
+            <a href="javascript:void(0)" className="text-tertiary fz-13 mt-1">
               <small>
                 <FaFlag />
               </small>
@@ -85,11 +82,15 @@ const SingleNovelPage = () => {
           </ul>
           <ul className="list-unstyled d-flex mb-4">
             <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">{novel.chapters}</div>
+              <div className="font-weight-semibold h4 mb-1">
+                {novel.chapters}
+              </div>
               <div>Chương</div>
             </li>
             <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">{novel.chaptersPerWeek}</div>
+              <div className="font-weight-semibold h4 mb-1">
+                {novel.chaptersPerWeek}
+              </div>
               <div>Chương/tuần</div>
             </li>
             <li className="mr-5">
@@ -97,7 +98,9 @@ const SingleNovelPage = () => {
               <div>Lượt đọc</div>
             </li>
             <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">{novel.bookmarkedValue}</div>
+              <div className="font-weight-semibold h4 mb-1">
+                {novel.bookmarkedValue}
+              </div>
               <div>Cất giữ</div>
             </li>
           </ul>
@@ -126,7 +129,8 @@ const SingleNovelPage = () => {
                 className="cursor-pointer btn btn-primary btn-md btn-block btn-shadow font-weight-semibold d-flex align-items-center justify-content-center"
                 style={{ color: "rgb(255, 255, 255)" }}
               >
-                <IoGlassesOutline className="mr-2" />Đọc truyện{" "}
+                <IoGlassesOutline className="mr-2" />
+                Đọc truyện{" "}
               </a>
             </li>
             <li id="bookmark" className="mr-3 w-150">

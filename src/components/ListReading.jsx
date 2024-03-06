@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const ListReading = () => {
   const [novels, setNovels] = useState([]);
@@ -48,10 +49,12 @@ const ListReading = () => {
             key={index}
             className="flex items-center bg-gray-100 p-2 rounded"
           >
-            <img
+            <Image
               src={novel.img}
               alt={novel.name}
-              className="w-12 h-16 object-cover "
+              width={48}
+              height={64}
+              className="object-cover "
             />
             <div className="ml-4 flex-grow">
               <p className="text-sm font-semibold hover:text-green-500 cursor-pointer">
