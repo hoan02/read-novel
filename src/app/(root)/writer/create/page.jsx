@@ -116,8 +116,10 @@ const CreateNovel = () => {
               <CldUploadWidget
                 uploadPreset="covers"
                 options={{
+                  clientAllowedFormats: ["jpg", "jpeg", "png", "webp"],
                   cropping: true,
                   croppingAspectRatio: 3 / 4,
+                  showSkipCropButton: false,
                 }}
                 onSuccess={handleUploadSuccess}
               >
@@ -130,7 +132,12 @@ const CreateNovel = () => {
                 }}
               </CldUploadWidget>
             ) : (
-              <CldImage alt="cover" width="300" height="400" src={formData.urlCover} />
+              <CldImage
+                alt="cover"
+                width="300"
+                height="400"
+                src={formData.urlCover}
+              />
             )}
           </FormControl>
 

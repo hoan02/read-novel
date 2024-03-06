@@ -8,6 +8,7 @@ import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +24,17 @@ export default function RootLayout({ children }) {
       className="scrollbar-thumb-green-500 scrollbar-track-green-300 scrollbar-thin"
     >
       <ClerkProvider localization={viVN}>
-        <body className={inter.className}>
-          <Header />
-          <Banner />
-          <main className="max-w-7xl mx-auto p-4 relative top-52">
-            {children}
-          </main>
-          <Footer />
-          <ToastContainer autoClose={3000} theme="light"/>
-        </body>
+        <Providers>
+          <body className={inter.className}>
+            <Header />
+            <Banner />
+            <main className="max-w-7xl mx-auto p-4 relative top-52">
+              {children}
+            </main>
+            <Footer />
+            <ToastContainer autoClose={3000} theme="light" />
+          </body>
+        </Providers>
       </ClerkProvider>
     </html>
   );

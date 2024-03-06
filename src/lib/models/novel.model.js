@@ -7,6 +7,10 @@ const NovelSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    slug: {
+      type: String,
+      require: true,
+    },
     author: {
       type: String,
       require: true,

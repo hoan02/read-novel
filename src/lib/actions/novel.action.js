@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import Novel from "@/lib/models/novel.model";
+import { generateSlug } from "@/utils/generateSlug";
 
 const { userId } = auth();
 
@@ -24,7 +25,7 @@ export const getMyNovel = async () => {
 export const getAllNovel = async () => {
   try {
     await connectToDB();
-    const novels = await Novel.find();
+    const novels = await Novel.find({});
     return { success: true, message: "Tất cả truyện", novels };
   } catch (error) {
     console.error(error);
@@ -34,11 +35,12 @@ export const getAllNovel = async () => {
 
 export const createNovel = async (formData) => {
   const { name, type, author, description, urlCover } = formData;
-
+  const slug = generateSlug(name);
   try {
     await connectToDB();
     const newNovel = new Novel({
       name,
+      slug,
       type,
       author,
       description,
@@ -56,13 +58,14 @@ export const createNovel = async (formData) => {
 
 export const updateNovel = async (novelId, formData) => {
   const { name, type, author, description } = formData;
-
+  const slug = generateSlug(name);
   try {
     await connectToDB();
     const novel = await Novel.findByIdAndUpdate(
       novelId,
       {
         name,
+        slug,
         type,
         author,
         description,
