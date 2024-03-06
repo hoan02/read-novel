@@ -25,10 +25,10 @@ const NovelSchema = new mongoose.Schema(
       require: true,
       default: 0,
     },
-    // image: {
-    //   type: String,
-    //   require: true,
-    // },
+    urlCover: {
+      type: String,
+      require: true,
+    },
     uploader: {
       type: String,
       require: true,

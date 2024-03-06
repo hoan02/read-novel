@@ -33,7 +33,7 @@ export const getAllNovel = async () => {
 };
 
 export const createNovel = async (formData) => {
-  const { name, type, author, description } = formData;
+  const { name, type, author, description, urlCover } = formData;
 
   try {
     await connectToDB();
@@ -42,6 +42,7 @@ export const createNovel = async (formData) => {
       type,
       author,
       description,
+      urlCover,
       uploader: userId,
     });
     await newNovel.save();

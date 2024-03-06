@@ -14,10 +14,10 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import { CldImage, CldUploadWidget } from "next-cloudinary";
 
 import { novelTypes } from "@/constants";
 import { createNovel } from "@/lib/actions/novel.action";
-import { createImage } from "@/lib/actions/cloudinary.action";
 
 const CreateNovel = () => {
   const router = useRouter();
@@ -26,6 +26,7 @@ const CreateNovel = () => {
     type: "",
     author: "",
     description: "",
+    urlCover: "",
   });
 
   const handleChange = (event) => {
@@ -36,10 +37,15 @@ const CreateNovel = () => {
     }));
   };
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    const url = await createImage(file);
-
+  const handleUploadSuccess = (result) => {
+    toast.success("Tải ảnh lên thành công");
+    const { event, info } = result;
+    if (event === "success") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        urlCover: info.secure_url,
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -105,15 +111,29 @@ const CreateNovel = () => {
             value={formData.description}
             onChange={handleChange}
           />
-          <TextField
-            label="Chọn ảnh bìa"
-            type="file"
-            fullWidth
-            onChange={handleFileChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+          <FormControl required fullWidth>
+            {!formData.urlCover ? (
+              <CldUploadWidget
+                uploadPreset="covers"
+                options={{
+                  cropping: true,
+                  croppingAspectRatio: 3 / 4,
+                }}
+                onSuccess={handleUploadSuccess}
+              >
+                {({ open }) => {
+                  return (
+                    <Button variant="outlined" onClick={() => open()}>
+                      Chọn ảnh bìa
+                    </Button>
+                  );
+                }}
+              </CldUploadWidget>
+            ) : (
+              <CldImage alt="cover" width="300" height="400" src={formData.urlCover} />
+            )}
+          </FormControl>
+
           <FormControlLabel
             required
             control={<Checkbox />}
