@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const baseUrl = process.env.BASE_URL;
+
 const newRequest = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: `${baseUrl}api/`,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
