@@ -19,16 +19,6 @@ const NovelSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    rating: {
-      type: Number,
-      require: true,
-      default: 0,
-    },
-    reads: {
-      type: Number,
-      require: true,
-      default: 0,
-    },
     urlCover: {
       type: String,
       require: true,
@@ -48,6 +38,21 @@ const NovelSchema = new mongoose.Schema(
         message: "Nội dung phải dài hơn 10 kí tự",
       },
     },
+    nominations: {
+      type: Number,
+      require: true,
+      default: 0,
+    },
+    rating: {
+      type: Number,
+      require: true,
+      default: 0,
+    },
+    reads: {
+      type: Number,
+      require: true,
+      default: 0,
+    },
     numberOfRating: {
       type: Number,
       require: true,
@@ -58,10 +63,6 @@ const NovelSchema = new mongoose.Schema(
       require: true,
       default: "Đang ra",
     },
-    // url: {
-    //   type: String,
-    //   require: true,
-    // },
     numberOfChapter: {
       type: Number,
       required: true,

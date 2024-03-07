@@ -3,6 +3,7 @@
 import { toast } from "react-toastify";
 import { CldUploadWidget } from "next-cloudinary";
 import { useState } from "react";
+import Image from "next/image";
 
 const Test = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -31,7 +32,7 @@ const Test = () => {
       </CldUploadWidget>
       {imageUrl && (
         <>
-          <img src={imageUrl} alt="Uploaded" />
+          <Image src={imageUrl} alt="Uploaded" width={200} height={200} />
           <p>{imageUrl}</p>
         </>
       )}

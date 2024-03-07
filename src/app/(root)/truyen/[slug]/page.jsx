@@ -6,6 +6,8 @@ import newRequest from "@/utils/newRequest";
 import { FaStar, FaSave, FaFlag } from "react-icons/fa";
 import { IoGlassesOutline } from "react-icons/io5";
 import { CldImage } from "next-cloudinary";
+import Chip from "@mui/material/Chip";
+import Rating from "@mui/material/Rating";
 
 const SingleNovelPage = () => {
   const { slug } = useParams();
@@ -35,126 +37,54 @@ const SingleNovelPage = () => {
   return (
     <div className="bg-white shadow-md p-4 rounded-xl flex gap-4">
       <div>
-        <CldImage src={novel.urlCover} width={200} height={200} />
+        <CldImage src={novel.urlCover} width={300} height={400} />
       </div>
-      <div>
-        <div className="media-body">
-          <div className="d-flex justify-content-start mb-3">
-            <h1 className="h3 mr-2">
-              <a href={`https://metruyencv.com/truyen/${novel.slug}`}>
-                {novel.name}
-              </a>
-            </h1>
-            <a href="javascript:void(0)" className="text-tertiary fz-13 mt-1">
-              <small>
-                <FaFlag />
-              </small>
-            </a>
+      <div className="w-full mx-4">
+        <div className="flex gap-2 items-center">
+          <h1 className="text-2xl font-semibold text-green-800">
+            {novel.name}
+          </h1>
+          <FaFlag />
+        </div>
+        <div className="flex gap-2 items-center my-6">
+          <Chip
+            label={novel.type}
+            variant="outlined"
+            style={{ color: "#0000AA", borderColor: "#0000AA" }}
+          />
+          <Chip
+            label={novel.state}
+            variant="outlined"
+            style={{ color: "#009900", borderColor: "#009900" }}
+          />
+          <Chip
+            label={novel.author}
+            variant="outlined"
+            style={{ color: "#990000", borderColor: "#990000" }}
+          />
+        </div>
+        <div className="flex gap-6 my-6">
+          <div>
+            <p className="font-bold">{novel.numberOfChapter}</p>
+            <p>Chương</p>
           </div>
-          <ul className="list-unstyled mb-4">
-            <li className="d-inline-block border border-secondary px-3 py-1 text-secondary rounded-3 mr-2 mb-2">
-              <a
-                href={`https://metruyencv.com/tac-gia/${novel.authorId}`}
-                className="text-secondary"
-              >
-                {novel.author}
-              </a>
-            </li>
-            <li className="d-inline-block border border-danger px-3 py-1 text-danger rounded-3 mr-2 mb-2">
-              Đang ra
-            </li>
-            <li className="d-inline-block border border-primary px-3 py-1 text-primary rounded-3 mr-2 mb-2">
-              <a
-                href={`https://metruyencv.com/truyen?genre=${novel.genreId}`}
-                className="text-primary"
-              >
-                {novel.genre}
-              </a>
-            </li>
-            <li className="d-inline-block border border-success px-3 py-1 text-success rounded-3 mr-2 mb-2">
-              <a
-                href={`https://metruyencv.com/truyen?tag=${novel.tagId}`}
-                className="text-success"
-              >
-                {novel.tag}
-              </a>
-            </li>
-          </ul>
-          <ul className="list-unstyled d-flex mb-4">
-            <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">
-                {novel.chapters}
-              </div>
-              <div>Chương</div>
-            </li>
-            <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">
-                {novel.chaptersPerWeek}
-              </div>
-              <div>Chương/tuần</div>
-            </li>
-            <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">{novel.views}</div>
-              <div>Lượt đọc</div>
-            </li>
-            <li className="mr-5">
-              <div className="font-weight-semibold h4 mb-1">
-                {novel.bookmarkedValue}
-              </div>
-              <div>Cất giữ</div>
-            </li>
-          </ul>
-          <div className="d-flex align-items-center mb-4">
-            <span className="nh-rating">
-              {[...Array(5)].map((_, index) => (
-                <FaStar key={index} />
-              ))}
-              <span className="active" style={{ width: "100%" }}>
-                {[...Array(5)].map((_, index) => (
-                  <FaStar key={index} />
-                ))}
-              </span>
-            </span>
-            <span className="d-inline-block ml-2">
-              <span className="font-weight-semibold">{novel.rating}</span>/5
-            </span>
-            <span className="d-inline-block text-secondary ml-1">
-              ({novel.reviews} đánh giá)
-            </span>
+          {/* <div>
+            <p className="font-bold">10</p>
+            <p>Chương/tuần</p>
+          </div> */}
+          <div>
+            <p className="font-bold">{novel.reads}</p>
+            <p>Lượt đọc</p>
           </div>
-          <ul className="list-unstyled d-flex align-items-center">
-            <li id="reading-book" className="mr-3 w-150">
-              <a
-                href={`https://metruyencv.com/truyen/${novel.slug}/chuong-1`}
-                className="cursor-pointer btn btn-primary btn-md btn-block btn-shadow font-weight-semibold d-flex align-items-center justify-content-center"
-                style={{ color: "rgb(255, 255, 255)" }}
-              >
-                <IoGlassesOutline className="mr-2" />
-                Đọc truyện{" "}
-              </a>
-            </li>
-            <li id="bookmark" className="mr-3 w-150">
-              <span>
-                {" "}
-                <a
-                  href="javascript:void(0);"
-                  className="btn btn-outline-secondary btn-md btn-block font-weight-semibold d-flex align-items-center justify-content-center"
-                >
-                  <FaSave className="mr-2" /> Đánh dấu
-                </a>{" "}
-              </span>
-            </li>
-            <li id="suggest-book" className="mr-3 w-150">
-              <div>
-                <a
-                  href="javascript:void(0);"
-                  className="btn btn-outline-warning btn-md btn-block bg-yellow-white text-primary font-weight-semibold d-flex align-items-center justify-content-center"
-                >
-                  <FaFlag className="mr-2" /> Đề cử
-                </a>
-              </div>
-            </li>
-          </ul>
+          <div>
+            <p className="font-bold">123</p>
+            <p>Đề cử</p>
+          </div>
+        </div>
+        <div className="my-4 flex items-center text-sm">
+          <Rating precision={0.5} defaultValue={novel.rating} max={10} readOnly />
+          <span className="ml-4 font-semibold">{novel.rating}/10</span>
+          <span className="ml-1">{`(${novel.nominations} đánh giá)`}</span>
         </div>
       </div>
     </div>
