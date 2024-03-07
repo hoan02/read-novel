@@ -7,6 +7,9 @@ export async function GET(req, context) {
   try {
     await connectToDB();
     const novel = await Novel.findOne({ slug: params.slug });
+    if (!novel) {
+      return new NextResponse("Novel not found", { status: 404 });
+    }
     return NextResponse.json(novel, { status: 200 });
   } catch (error) {
     return new NextResponse("Error in fetching novel" + error, {

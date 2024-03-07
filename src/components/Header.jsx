@@ -91,8 +91,8 @@ const Header = () => {
 
           {!isLoaded || !isSignedIn ? (
             <div className="flex gap-4 mx-4 font-medium">
-              <Link href="sign-in">Đăng nhập</Link>
-              <Link href="sign-up">Đăng ký</Link>
+              <Link href="/sign-in">Đăng nhập</Link>
+              <Link href="/sign-up">Đăng ký</Link>
             </div>
           ) : (
             <>
