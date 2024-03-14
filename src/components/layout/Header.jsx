@@ -143,8 +143,8 @@ const Header = () => {
                       </div>
                     )}
                     {isSignedIn && (
-                      <SignOutButton className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
-                        <button>
+                      <SignOutButton>
+                        <button className="flex text-red-600 gap-4 pt-2 border-t-2 border-gray-400">
                           <RiLogoutBoxRLine size={24} />
                           Đăng xuất
                         </button>

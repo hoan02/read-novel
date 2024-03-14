@@ -8,31 +8,6 @@ import { generateSlug } from "@/utils/generateSlug";
 
 const { userId } = auth();
 
-export const getMyNovel = async () => {
-  try {
-    await connectToDB();
-    const novel = await Novel.findOne({ uploader: userId });
-    if (!novel) {
-      throw new Error("Không tìm thấy truyện!");
-    }
-    return novel;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Không thể lấy truyện!");
-  }
-};
-
-export const getAllNovel = async () => {
-  try {
-    await connectToDB();
-    const novels = await Novel.find({});
-    return { success: true, message: "Tất cả truyện", novels };
-  } catch (error) {
-    console.error(error);
-    throw new Error("Không thể lấy danh sách truyện!");
-  }
-};
-
 export const createNovel = async (formData) => {
   const { name, type, author, description, urlCover } = formData;
   const slug = generateSlug(name);
@@ -56,8 +31,8 @@ export const createNovel = async (formData) => {
   }
 };
 
-export const updateNovel = async (novelId, formData) => {
-  const { name, type, author, description } = formData;
+export const updateNovel = async (formData) => {
+  const { novelId, name, type, author, urlCover, description } = formData;
   const slug = generateSlug(name);
   try {
     await connectToDB();
@@ -68,6 +43,7 @@ export const updateNovel = async (novelId, formData) => {
         slug,
         type,
         author,
+        urlCover,
         description,
       },
       {

@@ -1,0 +1,20 @@
+import moment from "moment";
+
+export default function formatTimeAgo(dateTimeString) {
+  const now = moment();
+  const postTime = moment(dateTimeString);
+  const diffSeconds = now.diff(postTime, "seconds");
+  const diffMinutes = now.diff(postTime, "minutes");
+  const diffHours = now.diff(postTime, "hours");
+  const diffDays = now.diff(postTime, "days");
+
+  if (diffDays >= 1) {
+    return moment(dateTimeString).format("HH:mm DD/MM/YYYY");
+  } else if (diffHours >= 1) {
+    return `${diffHours} giờ trước`;
+  } else if (diffMinutes >= 1) {
+    return `${diffMinutes} phút trước`;
+  } else {
+    return `${diffSeconds} giây trước`;
+  }
+}

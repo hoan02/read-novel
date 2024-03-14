@@ -73,8 +73,7 @@ const NovelSchema = new mongoose.Schema(
       default: [],
     },
   },
-  { timestamps: true },
-  { versionKey: false }
+  { timestamps: true }
 );
 
 // NovelSchema.index({ name: "text" });

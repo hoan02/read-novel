@@ -1,9 +1,9 @@
-import TopBar from "@/components/TopBar";
 import { Protect } from "@clerk/nextjs";
 import "@/styles/writer.css";
 import ForbiddenWriter from "@/components/writer/ForbiddenWriter";
-import SideBarWriter from "@/components/writer/SideBarWriter";
 import CustomThemeProvider from "@/components/CustomThemeProvider";
+import TopBar from "@/components/layout/TopBar";
+import SideBarWriter from "@/components/layout/SideBarWriter";
 
 export const metadata = {
   title: "Writer dashboard",
