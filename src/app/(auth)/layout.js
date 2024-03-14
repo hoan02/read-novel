@@ -2,11 +2,10 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
 
-import Header from "@/components/Header";
-import Banner from "@/components/Banner";
-
 import "@/styles/globals.css";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Banner from "@/components/layout/Banner";
+import Footer from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

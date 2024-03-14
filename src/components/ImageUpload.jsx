@@ -50,9 +50,9 @@ const ImageUpload = ({ onChange, onRemove, value }) => {
             return (
               <button
                 onClick={() => open()}
-                className="bg-grey-2 text-green-700 w-[300px] h-[400px] rounded-lg border-2"
+                className="text-gray-300 w-[300px] h-[400px] rounded-lg border-[1px] border-gray-500 hover:border-gray-300"
               >
-                Chọn ảnh
+                Chọn ảnh bìa
               </button>
             );
           }}

@@ -1,11 +1,11 @@
 import { Inter } from "next/font/google";
 
-import SideBarAdmin from "@/components/admin/SideBarAdmin";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/layout/TopBar";
 import { Protect } from "@clerk/nextjs";
 import "@/styles/writer.css";
 import ForbiddenAdmin from "@/components/admin/ForbiddenAdmin";
 import CustomThemeProvider from "@/components/CustomThemeProvider";
+import SideBarAdmin from "@/components/layout/SideBarAdmin";
 
 export const metadata = {
   title: "Admin dashboard",

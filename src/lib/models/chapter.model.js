@@ -1,26 +1,23 @@
 import mongoose from "mongoose";
 
-const ChapterSchema = new mongoose.Schema(
+const chapterSchema = new mongoose.Schema(
   {
-    chapterNumber: {
-      type: Number,
-      require: true,
-      default: 0,
-    },
-    content: {
-      type: String,
-      require: true,
-      default: "Nội dung chương",
-      validate: {
-        validator: (item) => {
-          return item.length > 10;
-        },
-        message: "Nội dung phải dài hơn 10 kí tự",
-      },
+    novelId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Novel",
+      required: true,
     },
     chapterName: {
       type: String,
-      require: true,
+      required: true,
+    },
+    chapterNumber: {
+      type: Number,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
     },
     isLock: {
       type: Boolean,
@@ -30,11 +27,15 @@ const ChapterSchema = new mongoose.Schema(
       type: Number,
       default: 200,
     },
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
 const Chapter =
-  mongoose.models.Chapter || mongoose.model("Chapter", ChapterSchema);
+  mongoose.models.Chapter || mongoose.model("Chapter", chapterSchema);
 
 export default Chapter;

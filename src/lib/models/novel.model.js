@@ -1,72 +1,64 @@
 import mongoose from "mongoose";
-import Chapter from "@/lib/models/chapter.model";
+import Chapter from "./chapter.model";
 
-const NovelSchema = new mongoose.Schema(
+const novelSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     slug: {
       type: String,
-      require: true,
+      required: true,
+      unique: true,
     },
     author: {
       type: String,
-      require: true,
+      required: true,
     },
     type: {
       type: String,
-      require: true,
+      required: true,
     },
     urlCover: {
       type: String,
-      require: true,
+      required: true,
     },
     uploader: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: true,
-      default: "Mô tả truyện đọc",
-      validate: {
-        validator: (item) => {
-          return item.length > 10;
-        },
-        message: "Nội dung phải dài hơn 10 kí tự",
-      },
+      required: true,
     },
     nominations: {
       type: Number,
-      require: true,
       default: 0,
     },
     rating: {
       type: Number,
-      require: true,
       default: 0,
     },
     reads: {
       type: Number,
-      require: true,
       default: 0,
     },
     numberOfRating: {
       type: Number,
-      require: true,
       default: 0,
     },
     state: {
       type: String,
-      require: true,
       default: "Đang ra",
     },
     numberOfChapter: {
       type: Number,
-      required: true,
       default: 0,
+    },
+    isPublic: {
+      type: Boolean,
+      default: false,
     },
     chapters: {
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
@@ -76,19 +68,21 @@ const NovelSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// NovelSchema.index({ name: "text" });
+novelSchema.index({ name: "text" });
 
-// NovelSchema.pre("remove", async function (next) {
-//   try {
-//     for (const id of this.chapters) {
-//       await Chapter.findByIdAndDelete(id);
-//     }
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+novelSchema.pre("findOneAndDelete", async function (next) {
+  try {
+    const chapterIds = this.get("chapters");
 
-const Novel = mongoose.models?.Novel || mongoose.model("Novel", NovelSchema);
+    if (chapterIds) {
+      await Chapter.deleteMany({ _id: { $in: chapterIds } });
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+const Novel = mongoose.models?.Novel || mongoose.model("Novel", novelSchema);
 
 export default Novel;

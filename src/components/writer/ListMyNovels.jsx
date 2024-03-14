@@ -28,7 +28,11 @@ const columns = [
     headerName: "Tên truyện",
     width: 450,
     renderCell: (params) => (
-      <Link href={`/truyen/${params.row.slug}`} className="hover:text-gray-300">
+      <Link
+        href={`/truyen/${params.row.slug}`}
+        className="hover:text-gray-300"
+        target="_blank"
+      >
         {params.row.name}
       </Link>
     ),
