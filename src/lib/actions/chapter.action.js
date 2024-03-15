@@ -43,27 +43,27 @@ export const createChapter = async (formData) => {
 };
 
 export const updateChapter = async (formData) => {
-  const { chapterId, chapterName, chapterNumber, content } = formData;
+  const { _id, chapterName, content } = formData;
+  console.log(_id, chapterName, content);
   try {
     await connectToDB();
-    const Chapter = await Chapter.findByIdAndUpdate(
-      chapterId,
+    const chapter = await Chapter.findByIdAndUpdate(
+      _id,
       {
         chapterName,
-        chapterNumber,
         content,
       },
       {
         new: true,
       }
     );
-    if (!Chapter) {
-      throw new Error("Không tìm thấy truyện!");
+    if (!chapter) {
+      throw new Error("Không tìm thấy chương!");
     }
-    return { success: true, message: "Truyện đã được cập nhật!" };
+    return { success: true, message: "Chương đã được cập nhật!" };
   } catch (error) {
     console.error(error);
-    throw new Error("Không thể cập nhật truyện!");
+    throw new Error("Không thể cập nhật chương!");
   }
 };
 

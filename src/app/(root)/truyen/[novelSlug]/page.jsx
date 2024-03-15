@@ -10,10 +10,10 @@ import Chip from "@mui/material/Chip";
 import Rating from "@mui/material/Rating";
 
 const SingleNovelPage = () => {
-  const { slug } = useParams();
+  const { novelSlug } = useParams();
   const fetchDataNovel = async () => {
     try {
-      const res = await newRequest(`novels/${slug}`);
+      const res = await newRequest(`novels/${novelSlug}`);
       return res.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -27,7 +27,7 @@ const SingleNovelPage = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: [`${slug}`],
+    queryKey: [`${novelSlug}`],
     queryFn: fetchDataNovel,
   });
 

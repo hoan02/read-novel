@@ -77,7 +77,6 @@ const FormNovel = () => {
     event.preventDefault();
     try {
       const res = await createChapter(formData);
-      console.log("RES:", res);
       toast.success("Chương đã được tạo thành công!");
       router.push(`/writer/${novelSlug}`);
     } catch (error) {

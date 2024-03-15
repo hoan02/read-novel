@@ -88,7 +88,7 @@ const FormNovel = ({ dataNovel }) => {
               value={formData.type}
               onChange={handleChange}
             >
-              {novelTypes.map((item, index) => (
+              {novelTypes?.map((item, index) => (
                 <MenuItem key={index} value={item.name}>
                   {item.name}
                 </MenuItem>
