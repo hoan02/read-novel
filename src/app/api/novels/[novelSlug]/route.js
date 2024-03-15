@@ -6,7 +6,7 @@ export const GET = async (req, context) => {
   const { params } = context;
   try {
     await connectToDB();
-    const novel = await Novel.findOne({ slug: params.slug });
+    const novel = await Novel.findOne({ slug: params.novelSlug });
     if (!novel) {
       return new NextResponse("Novel not found", { status: 404 });
     }

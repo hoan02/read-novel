@@ -37,7 +37,7 @@ const ListChapterOfNovel = ({ novel }) => {
       renderCell: (params) => <p>{params.row.chapterNumber}</p>,
     },
     {
-      field: "name",
+      field: "chapterName",
       headerName: "Tên chương",
       width: 450,
       renderCell: (params) => (
