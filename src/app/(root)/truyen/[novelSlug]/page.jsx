@@ -2,49 +2,26 @@
 
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "@/utils/newRequest";
-import { FaStar, FaSave, FaFlag } from "react-icons/fa";
-import { IoGlassesOutline } from "react-icons/io5";
+import { FaFlag } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
 import Chip from "@mui/material/Chip";
 import Rating from "@mui/material/Rating";
-import { checkMark } from "@/lib/actions/marked.action";
-import { useState } from "react";
+import Link from "next/link";
 
 const SingleNovelPage = () => {
   const { novelSlug } = useParams();
-  const [numberMarked, setNumberMarked] = useState(0);
-  const getDataNovel = async () => {
-    try {
-      const dataNovel = await newRequest(`novels/${novelSlug}`);
-      const dataMarked = await newRequest(`marked/${novelSlug}`);
-      console.log(dataMarked);
-      setNumberMarked(dataMarked.data.chapterNumber);
-      return dataNovel.data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  };
 
-  const {
-    data: novel,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: [`${novelSlug}`],
-    queryFn: getDataNovel,
+  const { data: novel, isLoading: novelLoading } = useQuery({
+    queryKey: ["novel", `${novelSlug}`],
+    queryFn: () => fetch(`/api/novels/${novelSlug}`).then((res) => res.json()),
   });
 
-  if (isLoading) return <div>Loading</div>;
-  if (isError) {
-    if (error.response?.status === 404) {
-      return <div>Novel not found</div>;
-    } else {
-      return <div>Error: {error.message}</div>;
-    }
-  }
+  const { data: markedData, isLoading: markedLoading } = useQuery({
+    queryKey: [`"marked", ${novelSlug}`],
+    queryFn: () => fetch(`/api/marked/${novelSlug}`).then((res) => res.json()),
+  });
+
+  if (novelLoading || markedLoading) return <div>Loading</div>;
 
   return (
     <>
@@ -108,9 +85,13 @@ const SingleNovelPage = () => {
           </div>
 
           <div>
-            <button>
-              {numberMarked === 0 ? "Đọc truyện" : "Đọc tiếp"} {numberMarked}
-            </button>
+            {markedData.chapterNumber === 0 ? (
+              <Link href={`/truyen/${novelSlug}/1`}>Đọc truyện</Link>
+            ) : (
+              <Link href={`/truyen/${novelSlug}/${markedData.chapterNumber}`}>
+                Đọc tiếp
+              </Link>
+            )}
           </div>
         </div>
       </div>

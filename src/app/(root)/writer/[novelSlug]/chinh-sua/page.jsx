@@ -3,15 +3,14 @@
 import { useParams } from "next/navigation";
 import FormNovel from "@/components/writer/FormNovel";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "@/utils/newRequest";
 import { LinearProgress } from "@mui/material";
 
 const UpdateNovelPage = () => {
   const { novelSlug } = useParams();
   const fetchDataNovel = async () => {
     try {
-      const res = await newRequest(`novels/${novelSlug}`);
-      return res.data;
+      const res = await fetch(`/api/novels/${novelSlug}`);
+      return res.json();
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

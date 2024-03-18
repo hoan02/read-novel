@@ -21,7 +21,6 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
 
-import newRequest from "@/utils/newRequest";
 import TextEditor from "@/components/TextEditor";
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import { updateChapter } from "@/lib/actions/chapter.action";
@@ -37,8 +36,8 @@ const EditChapter = () => {
   });
 
   const fetchDataNovel = async () => {
-    const res = await newRequest(`writer/${novelSlug}/${chapterNumber}`);
-    const chapter = res.data;
+    const res = await fetch(`/api/writer/${novelSlug}/${chapterNumber}`);
+    const chapter = res.json();
     setFormData(chapter);
     return chapter;
   };

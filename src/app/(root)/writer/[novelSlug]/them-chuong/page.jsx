@@ -21,7 +21,7 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
 
-import newRequest from "@/utils/newRequest";
+
 import TextEditor from "@/components/TextEditor";
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import { createChapter } from "@/lib/actions/chapter.action";
@@ -38,8 +38,8 @@ const FormNovel = () => {
   });
 
   const fetchDataNovel = async () => {
-    const res = await newRequest(`novels/${novelSlug}`);
-    const novel = res.data;
+    const res = await fetch(`/api/novels/${novelSlug}`);
+    const novel = res.json();
     setFormData({
       ...formData,
       novelId: novel._id,
@@ -94,7 +94,6 @@ const FormNovel = () => {
     }
   }
 
-  console.log(formData);
 
   return (
     <Grid container spacing={2}>

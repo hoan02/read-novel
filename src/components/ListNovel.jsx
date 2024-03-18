@@ -7,13 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 
-import newRequest from "@/utils/newRequest";
 
 const ListNovel = () => {
   const fetchDataNovels = async () => {
     try {
-      const res = await newRequest(`novels`);
-      return res.data;
+      const res = await fetch(`/api/novels`);
+      return res.json();
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

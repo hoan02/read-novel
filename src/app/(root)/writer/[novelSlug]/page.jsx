@@ -4,16 +4,9 @@ import ListChapterOfNovel from "@/components/writer/ListChapterOfNovel";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
-import newRequest from "@/utils/newRequest";
 
 const ListChapterPage = () => {
   const { novelSlug } = useParams();
-
-  const fetchDataNovelDetails = async () => {
-    const res = await newRequest(`writer/${novelSlug}`);
-    const novel = res.data;
-    return novel;
-  };
 
   const {
     data: novel,
@@ -22,7 +15,7 @@ const ListChapterPage = () => {
     error,
   } = useQuery({
     queryKey: [`${novelSlug}`],
-    queryFn: fetchDataNovelDetails,
+    queryFn: () => fetch(`/api/writer/${novelSlug}`).then((res) => res.json()),
   });
 
   if (isLoading) return <LinearProgress />;

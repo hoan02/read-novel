@@ -2,14 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 import ListMyNovels from "@/components/writer/ListMyNovels";
-import newRequest from "@/utils/newRequest";
+
 import LinearProgress from "@mui/material/LinearProgress";
 
 const PublishedPage = () => {
   const fetchDataNovels = async () => {
     try {
-      const res = await newRequest(`writer`);
-      return res.data;
+      const res = await fetch(`/api/writer`);
+      return res.json();
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -31,7 +31,6 @@ const PublishedPage = () => {
 
   if (isError) return <div>Error fetching data</div>;
 
-  console.log(novels);
 
   return <ListMyNovels novels={novels} />;
 };
