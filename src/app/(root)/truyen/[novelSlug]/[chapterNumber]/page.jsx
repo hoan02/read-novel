@@ -1,19 +1,15 @@
 "use client";
 
 import { createOrUpdateMark } from "@/lib/actions/marked.action";
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Button } from "@mui/material";
+import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
+import Link from "next/link";
 
 const SingleChapterPage = ({ params }) => {
   const { novelSlug, chapterNumber } = params;
 
-  const {
-    data: chapter,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useQuery({
+  const { data, isLoading, isSuccess, isError, error } = useQuery({
     queryKey: [`${novelSlug}${chapterNumber}`],
     queryFn: () =>
       fetch(`/api/novels/${novelSlug}/${chapterNumber}`).then((res) =>
@@ -42,10 +38,36 @@ const SingleChapterPage = ({ params }) => {
   }
 
   return (
-    <div className="bg-white shadow-md p-4 rounded-xl flex gap-4">
+    <div className="bg-white shadow-md lg:px-16 p-4 rounded-lg">
+      <div className="flex justify-between py-2">
+        <Link
+          href={`/truyen/${novelSlug}/${data.chapter.chapterNumber - 1}`}
+          className={`flex items-center py-2 px-4 border-2 rounded-full ${
+            data.chapter.chapterNumber === 1
+              ? "pointer-events-none opacity-50"
+              : "hover:bg-gray-100"
+          }`}
+        >
+          <GrFormPreviousLink />
+          Chương trước
+        </Link>
+        <Link
+          href={`/truyen/${novelSlug}/${data.chapter.chapterNumber + 1}`}
+          className={`flex items-center py-2 px-4 border-2 rounded-full ${
+            data.chapter.chapterNumber == data.totalChapters
+              ? "pointer-events-none opacity-50"
+              : "hover:bg-gray-100"
+          }`}
+        >
+          Chương sau <GrFormNextLink />
+        </Link>
+      </div>
+      <h1 className="text-3xl py-10 text-center">
+        Chương {data.chapter.chapterNumber}: {data.chapter.chapterName}
+      </h1>
       <div
         dangerouslySetInnerHTML={{
-          __html: chapter.content,
+          __html: data.chapter.content,
         }}
       />
     </div>

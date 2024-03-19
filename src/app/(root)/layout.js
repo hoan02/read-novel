@@ -9,6 +9,7 @@ import Providers from "@/components/Providers";
 import Header from "@/components/layout/Header";
 import Banner from "@/components/layout/Banner";
 import Footer from "@/components/layout/Footer";
+import CustomThemeProviderMain from "@/components/CustomThemeProviderMain";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,9 +29,11 @@ export default function RootLayout({ children }) {
           <body className={inter.className}>
             <Header />
             <Banner />
-            <main className="max-w-7xl mx-auto p-4 relative top-52">
-              {children}
-            </main>
+            <CustomThemeProviderMain>
+              <main className="max-w-7xl mx-auto p-4 relative top-52">
+                {children}
+              </main>
+            </CustomThemeProviderMain>
             <Footer />
             <ToastContainer autoClose={3000} theme="light" />
           </body>

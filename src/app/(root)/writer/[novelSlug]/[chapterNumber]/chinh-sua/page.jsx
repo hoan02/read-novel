@@ -37,7 +37,7 @@ const EditChapter = () => {
 
   const fetchDataNovel = async () => {
     const res = await fetch(`/api/writer/${novelSlug}/${chapterNumber}`);
-    const chapter = res.json();
+    const chapter = await res.json();
     setFormData(chapter);
     return chapter;
   };

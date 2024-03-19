@@ -39,7 +39,7 @@ const FormNovel = () => {
 
   const fetchDataNovel = async () => {
     const res = await fetch(`/api/novels/${novelSlug}`);
-    const novel = res.json();
+    const novel = await res.json();
     setFormData({
       ...formData,
       novelId: novel._id,

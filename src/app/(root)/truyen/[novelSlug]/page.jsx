@@ -7,6 +7,11 @@ import { CldImage } from "next-cloudinary";
 import Chip from "@mui/material/Chip";
 import Rating from "@mui/material/Rating";
 import Link from "next/link";
+import TabsDetailsNovel from "@/components/novel/details/TabsDetailsNovel";
+import { PiSunglassesFill } from "react-icons/pi";
+import { Button } from "@mui/material";
+import { HiOutlineBookmark } from "react-icons/hi";
+import Image from "next/image";
 
 const SingleNovelPage = () => {
   const { novelSlug } = useParams();
@@ -24,8 +29,8 @@ const SingleNovelPage = () => {
   if (novelLoading || markedLoading) return <div>Loading</div>;
 
   return (
-    <>
-      <div className="bg-white shadow-md p-4 rounded-xl flex gap-4">
+    <div className="bg-white shadow-md p-4 rounded-xl ">
+      <div className="flex gap-4">
         <div>
           <CldImage
             alt={novel.name}
@@ -84,18 +89,71 @@ const SingleNovelPage = () => {
             <span className="ml-1">{`(${novel.nominations} đánh giá)`}</span>
           </div>
 
-          <div>
+          <div className="flex gap-6">
             {markedData.chapterNumber === 0 ? (
-              <Link href={`/truyen/${novelSlug}/1`}>Đọc truyện</Link>
+              <Link href={`/truyen/${novelSlug}/1`}>
+                <Button
+                  variant="contained"
+                  style={{
+                    width: "150px",
+                    borderRadius: "30px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                  }}
+                  startIcon={<PiSunglassesFill size={30} />}
+                >
+                  Đọc truyện
+                </Button>
+              </Link>
             ) : (
               <Link href={`/truyen/${novelSlug}/${markedData.chapterNumber}`}>
-                Đọc tiếp
+                <Button
+                  variant="contained"
+                  style={{
+                    width: "150px",
+                    borderRadius: "30px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                  }}
+                  startIcon={<PiSunglassesFill size={30} />}
+                >
+                  Đọc tiếp
+                </Button>
               </Link>
             )}
+            <Button
+              variant="outlined"
+              style={{
+                width: "150px",
+                borderRadius: "30px",
+                textTransform: "none",
+                fontSize: "16px",
+              }}
+              startIcon={<HiOutlineBookmark size={24} />}
+            >
+              Đánh dấu
+            </Button>
+            <Button
+              variant="outlined"
+              style={{
+                width: "150px",
+                borderRadius: "30px",
+                textTransform: "none",
+                fontSize: "16px",
+              }}
+              startIcon={
+                <Image src="/candy.png" alt="candy" width={24} height={24} />
+              }
+            >
+              Đề cử
+            </Button>
           </div>
         </div>
       </div>
-    </>
+      <div className="mt-10">
+        <TabsDetailsNovel novel={novel} />
+      </div>
+    </div>
   );
 };
 

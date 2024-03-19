@@ -23,7 +23,7 @@ const links = [
 const useFilteredRows = (rows, filterText) => {
   return useMemo(() => {
     return rows.filter((row) =>
-      row.chapterName.toLowerCase().includes(filterText.toLowerCase())
+      row.chapterName?.toLowerCase().includes(filterText.toLowerCase())
     );
   }, [rows, filterText]);
 };

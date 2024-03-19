@@ -18,7 +18,10 @@ export const GET = async (req, context) => {
     if (!chapter) {
       return new NextResponse("Chapter not found", { status: 404 });
     }
-    return NextResponse.json(chapter, { status: 200 });
+    return NextResponse.json(
+      { chapter: chapter, totalChapters: novel.numberOfChapter },
+      { status: 200 }
+    );
   } catch (error) {
     return new NextResponse("Error in fetching novel" + error, {
       status: 500,
