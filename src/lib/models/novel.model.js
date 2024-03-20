@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import Chapter from "./chapter.model";
+import Rating from "./rating.model";
+import Marked from "./marked.model";
 
 const novelSchema = new mongoose.Schema(
   {
@@ -64,24 +66,15 @@ const novelSchema = new mongoose.Schema(
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
       default: [],
     },
+    ratings: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
+      default: [],
+    },
   },
   { timestamps: true }
 );
 
 novelSchema.index({ name: "text" });
-
-novelSchema.pre("findOneAndDelete", async function (next) {
-  try {
-    const chapterIds = this.get("chapters");
-
-    if (chapterIds) {
-      await Chapter.deleteMany({ _id: { $in: chapterIds } });
-    }
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
 
 const Novel = mongoose.models?.Novel || mongoose.model("Novel", novelSchema);
 

@@ -6,10 +6,10 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
 import Intro from "./Intro";
-import Rating from "./Rating";
 import ListChapter from "./ListChapter";
 import Fan from "./Fan";
 import Comment from "./Comment";
+import RatingNovel from "./RatingNovel";
 
 const TabsDetailsNovel = ({ novel }) => {
   const [value, setValue] = useState("gioi-thieu");
@@ -29,7 +29,7 @@ const TabsDetailsNovel = ({ novel }) => {
       label: "Đánh giá",
       value: "danh-gia",
       chip: novel.numberOfRating,
-      content: <Rating />,
+      content: <RatingNovel novel={novel}/>,
     },
     {
       label: "Danh sách chương",
@@ -79,7 +79,14 @@ const TabsDetailsNovel = ({ novel }) => {
         </Box>
         {tabList.map((tab) => {
           return (
-            <TabPanel key={tab.value} value={tab.value}>
+            <TabPanel
+              key={tab.value}
+              value={tab.value}
+              style={{
+                padding: 0,
+                marginTop: "20px",
+              }}
+            >
               {tab.content}
             </TabPanel>
           );

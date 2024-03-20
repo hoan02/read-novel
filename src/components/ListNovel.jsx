@@ -7,25 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 
-
 const ListNovel = () => {
-  const fetchDataNovels = async () => {
-    try {
-      const res = await fetch(`/api/novels`);
-      return res.json();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  };
-
   const {
     data: novels,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["novels"],
-    queryFn: fetchDataNovels,
+    queryFn: fetch(`/api/novels`).then((res) => res.json()),
   });
 
   if (isLoading) {

@@ -50,10 +50,15 @@ const FormNovel = ({ dataNovel }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    let res;
     try {
-      if (dataNovel) await updateNovel(formData);
-      else await createNovel(formData);
-      toast.success("Truyện đã được tạo thành công!");
+      if (dataNovel) {
+        res = await updateNovel(formData);
+      } else {
+        res = await createNovel(formData);
+      }
+      if (res.success) toast.success(res.message);
+
       router.push("/writer/published");
     } catch (error) {
       console.error(error);

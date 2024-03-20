@@ -11,7 +11,11 @@ import {
   RiEditLine,
   RiBarChart2Line,
   RiContactsLine,
+  RiDeleteBin6Line,
 } from "react-icons/ri";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteNovel } from "@/lib/actions/novel.action";
+import { toast } from "react-toastify";
 
 const links = [
   { href: "/them-chuong", title: "Thêm chương", icon: RiAddLine },
@@ -19,49 +23,6 @@ const links = [
   { href: "/chinh-sua", title: "Chỉnh sửa truyện", icon: RiEditLine },
   { href: "/thong-ke", title: "Thống kê", icon: RiBarChart2Line },
   { href: "/lien-he", title: "Liên hệ", icon: RiContactsLine },
-];
-
-const columns = [
-  { field: "stt", headerName: "STT", width: 50 },
-  {
-    field: "name",
-    headerName: "Tên truyện",
-    width: 450,
-    renderCell: (params) => (
-      <Link
-        href={`/truyen/${params.row.slug}`}
-        className="hover:text-gray-300"
-        target="_blank"
-      >
-        {params.row.name}
-      </Link>
-    ),
-  },
-  { field: "numberOfChapter", headerName: "Số chương", width: 150 },
-  { field: "state", headerName: "Trạng thái", width: 150 },
-  { field: "createdAt", headerName: "Ngày đăng", width: 150 },
-  {
-    field: "button",
-    headerName: "",
-    width: 200,
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
-    renderCell: (params) => (
-      <div className="ml-5 flex">
-        {links.map((link, index) => (
-          <Link
-            key={index}
-            href={`/writer/${params.row.slug}/${link.href}`}
-            className="text-orange-600 hover:text-orange-900 ml-2"
-            title={link.title}
-          >
-            <link.icon className="h-5 w-5" />
-          </Link>
-        ))}
-      </div>
-    ),
-  },
 ];
 
 const useFilteredRows = (rows, filterText) => {
@@ -73,6 +34,7 @@ const useFilteredRows = (rows, filterText) => {
 };
 
 const ListMyNovels = ({ novels }) => {
+  const queryClient = useQueryClient();
   const rows = novels.map((novel, index) => ({
     id: novel._id,
     stt: index + 1,
@@ -87,6 +49,64 @@ const ListMyNovels = ({ novels }) => {
   const handleFilterTextChange = (e) => {
     setFilterText(e.target.value);
   };
+
+  const columns = [
+    { field: "stt", headerName: "STT", width: 50 },
+    {
+      field: "name",
+      headerName: "Tên truyện",
+      width: 450,
+      renderCell: (params) => (
+        <Link
+          href={`/truyen/${params.row.slug}`}
+          className="hover:text-gray-300"
+          target="_blank"
+        >
+          {params.row.name}
+        </Link>
+      ),
+    },
+    { field: "numberOfChapter", headerName: "Số chương", width: 150 },
+    { field: "state", headerName: "Trạng thái", width: 150 },
+    { field: "createdAt", headerName: "Ngày đăng", width: 150 },
+    {
+      field: "button",
+      headerName: "",
+      width: 200,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <div className="ml-5 flex">
+          {links.map((link, index) => (
+            <Link
+              key={index}
+              href={`/writer/${params.row.slug}/${link.href}`}
+              className="text-orange-600 hover:text-orange-900 ml-2"
+              title={link.title}
+            >
+              <link.icon className="h-5 w-5" />
+            </Link>
+          ))}
+          <RiDeleteBin6Line
+            className="h-5 w-5 text-orange-600 hover:text-orange-900 ml-2 cursor-pointer"
+            onClick={() => handleDeleteNovel.mutate(params.row.id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
+  // DELETE: Delete Novel
+  const handleDeleteNovel = useMutation({
+    mutationFn: (novelId) => {
+      return deleteNovel(novelId);
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries(["novels"]);
+    },
+  });
 
   const filteredRows = useFilteredRows(rows, filterText);
   return (

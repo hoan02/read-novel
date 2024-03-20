@@ -29,7 +29,7 @@ const SingleNovelPage = () => {
   if (novelLoading || markedLoading) return <div>Loading</div>;
 
   return (
-    <div className="bg-white shadow-md p-4 rounded-xl ">
+    <div className="bg-white shadow-md p-4 rounded-xl">
       <div className="flex gap-4">
         <div>
           <CldImage

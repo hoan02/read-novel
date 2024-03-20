@@ -7,15 +7,6 @@ import { LinearProgress } from "@mui/material";
 
 const UpdateNovelPage = () => {
   const { novelSlug } = useParams();
-  const fetchDataNovel = async () => {
-    try {
-      const res = await fetch(`/api/novels/${novelSlug}`);
-      return res.json();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  };
 
   const {
     data: novel,
@@ -24,7 +15,7 @@ const UpdateNovelPage = () => {
     error,
   } = useQuery({
     queryKey: [`${novelSlug}`],
-    queryFn: fetchDataNovel,
+    queryFn: fetch(`/api/novels/${novelSlug}`).then((res) => res.json()),
   });
 
   if (isLoading) return <LinearProgress />;
