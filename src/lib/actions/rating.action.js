@@ -7,39 +7,34 @@ import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
 export const createOrUpdateRating = async (formData) => {
-  const { novelId, valueCharacter, valuePlot, valueWorld, ratingContent } = formData;
+  const { novelSlug, valueCharacter, valuePlot, valueWorld, ratingContent } =
+    formData;
   try {
     const { userId } = auth();
     await connectToDB();
 
-    const filter = { novelId, clerkId: userId };
-    const update = {
-      $set: {
-        valueCharacter,
-        valuePlot,
-        valueWorld,
-        ratingContent,
+    let existingRating = await Rating.findOneAndUpdate(
+      { novelSlug, clerkId: userId },
+      {
+        $set: {
+          valueCharacter,
+          valuePlot,
+          valueWorld,
+          ratingContent,
+        },
       },
-    };
+      {
+        new: true,
+        upsert: true,
+      }
+    );
 
-    let existingRating = await Rating.findOneAndUpdate(filter, update, {
-      new: true,
-      upsert: true,
-    });
-
-    const novel = await Novel.findById(novelId);
-
-    if (!novel) {
-      throw new Error("Truyện không tồn tại");
+    if (existingRating.isNew) {
+      await Novel.updateOne(
+        { slug: novelSlug },
+        { $inc: { numberOfRating: 1 } }
+      );
     }
-
-    if (!novel.ratings.includes(existingRating._id)) {
-      await Novel.findByIdAndUpdate(novelId, {
-        $push: { ratings: existingRating._id },
-        $inc: { numberOfRating: 1 },
-      });
-    }
-
     revalidatePath("/truyen");
     return { success: true, message: "Đánh giá thành công!" };
   } catch (error) {

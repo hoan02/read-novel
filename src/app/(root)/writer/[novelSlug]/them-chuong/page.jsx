@@ -21,7 +21,6 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
 
-
 import TextEditor from "@/components/TextEditor";
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import { createChapter } from "@/lib/actions/chapter.action";
@@ -30,7 +29,7 @@ const FormNovel = () => {
   const router = useRouter();
   const { novelSlug } = useParams();
   const [formData, setFormData] = useState({
-    novelId: "",
+    novelSlug: "",
     chapterName: "",
     chapterNumber: 0,
     content: "",
@@ -42,7 +41,7 @@ const FormNovel = () => {
     const novel = await res.json();
     setFormData({
       ...formData,
-      novelId: novel._id,
+      novelSlug: novel.slug,
       chapterNumber: novel.numberOfChapter + 1,
     });
     return novel;
@@ -76,6 +75,7 @@ const FormNovel = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log(formData);
       const res = await createChapter(formData);
       toast.success("Chương đã được tạo thành công!");
       router.push(`/writer/${novelSlug}`);
@@ -93,7 +93,6 @@ const FormNovel = () => {
       return <div>Error: {error.message}</div>;
     }
   }
-
 
   return (
     <Grid container spacing={2}>

@@ -19,7 +19,6 @@ const links = [
   { href: "/lien-he", title: "Liên hệ", icon: RiContactsLine },
 ];
 
-
 const useFilteredRows = (rows, filterText) => {
   return useMemo(() => {
     return rows.filter((row) =>
@@ -28,7 +27,7 @@ const useFilteredRows = (rows, filterText) => {
   }, [rows, filterText]);
 };
 
-const ListChapterOfNovel = ({ novel }) => {
+const ListChapterOfNovel = ({ chapters }) => {
   const columns = [
     {
       field: "stt",
@@ -42,7 +41,7 @@ const ListChapterOfNovel = ({ novel }) => {
       width: 450,
       renderCell: (params) => (
         <Link
-          href={`/truyen/${novel.slug}/${params.row.chapterNumber}`}
+          href={`/truyen/${chapters[0].novelSlug}/${params.row.chapterNumber}`}
           className="hover:text-gray-300"
           target="_blank"
         >
@@ -62,7 +61,7 @@ const ListChapterOfNovel = ({ novel }) => {
           {links.map((link, index) => (
             <Link
               key={index}
-              href={`/writer/${novel.slug}/${params.row.chapterNumber}/${link.href}`}
+              href={`/writer/${chapters[0].novelSlug}/${params.row.chapterNumber}/${link.href}`}
               className="text-orange-600 hover:text-orange-900 ml-2"
               title={link.title}
             >
@@ -74,7 +73,7 @@ const ListChapterOfNovel = ({ novel }) => {
     },
   ];
 
-  const rows = novel.chapters.map((chapter, index) => ({
+  const rows = chapters.map((chapter, index) => ({
     id: chapter._id,
     stt: index + 1,
     chapterName: chapter.chapterName,
@@ -86,6 +85,8 @@ const ListChapterOfNovel = ({ novel }) => {
   const handleFilterTextChange = (e) => {
     setFilterText(e.target.value);
   };
+
+  console.log(chapters);
 
   const filteredRows = useFilteredRows(rows, filterText);
   return (

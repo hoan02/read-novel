@@ -32,10 +32,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: "reader",
     },
-    // posts: {
-    //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
-    //   default: [],
-    // },
   },
   { timestamps: true }
 );

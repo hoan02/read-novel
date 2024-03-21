@@ -15,7 +15,7 @@ const UpdateNovelPage = () => {
     error,
   } = useQuery({
     queryKey: [`${novelSlug}`],
-    queryFn: fetch(`/api/novels/${novelSlug}`).then((res) => res.json()),
+    queryFn: () => fetch(`/api/novels/${novelSlug}`).then((res) => res.json()),
   });
 
   if (isLoading) return <LinearProgress />;

@@ -71,8 +71,8 @@ export const deleteNovel = async (novelId) => {
       throw new Error("Không tìm thấy truyện!");
     }
 
-    await Rating.deleteMany({ _id: { $in: novel.ratings } });
-    await Chapter.deleteMany({ _id: { $in: novel.chapters } });
+    await Rating.deleteMany({ novelId: novelId });
+    await Chapter.deleteMany({ novelId: novelId });
     await Marked.deleteMany({ novelSlug: novel.slug });
 
     const deletedNovel = await Novel.findByIdAndDelete(novelId);

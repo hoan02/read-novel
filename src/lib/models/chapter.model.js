@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 const chapterSchema = new mongoose.Schema(
   {
-    novelId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Novel",
+    novelSlug: {
+      type: String,
       required: true,
     },
     chapterName: {

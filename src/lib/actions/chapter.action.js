@@ -6,13 +6,13 @@ import Chapter from "@/lib/models/chapter.model";
 import Novel from "@/lib/models/novel.model";
 
 export const createChapter = async (formData) => {
-  const { novelId, chapterName, chapterNumber, content, addChapterType } =
+  const { novelSlug, chapterName, chapterNumber, content, addChapterType } =
     formData;
   try {
     await connectToDB();
     if (addChapterType === "insert") {
       const chaptersToUpdate = await Chapter.find({
-        novelId: novelId,
+        novelSlug: novelSlug,
         chapterNumber: { $gte: chapterNumber },
       });
 
@@ -23,16 +23,18 @@ export const createChapter = async (formData) => {
     }
 
     const newChapter = await Chapter.create({
-      novelId,
+      novelSlug,
       chapterName,
       chapterNumber,
       content,
     });
 
-    await Novel.findByIdAndUpdate(novelId, {
-      $push: { chapters: newChapter._id },
-      $inc: { numberOfChapter: 1 },
-    });
+    await Novel.findOneAndUpdate(
+      { slug: novelSlug },
+      {
+        $inc: { numberOfChapter: 1 },
+      }
+    );
 
     revalidatePath("/writer");
     return { success: true, message: "Chương đã được tạo thành công!" };

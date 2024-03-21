@@ -1,5 +1,17 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Rating, TextField, Divider } from "@mui/material";
+import { useParams } from "next/navigation";
+import {
+  Rating,
+  TextField,
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import { IoSend } from "react-icons/io5";
 import {
   MdOutlineSentimentVeryDissatisfied,
@@ -12,6 +24,7 @@ import { TbLayoutGrid } from "react-icons/tb";
 import { IoDocumentText } from "react-icons/io5";
 import { createOrUpdateRating } from "@/lib/actions/rating.action";
 import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const labels = {
   1: "1/10",
@@ -55,6 +68,8 @@ const states = [
 ];
 
 const RatingNovel = ({ novel }) => {
+  const { novelSlug } = useParams();
+  const queryClient = useQueryClient();
   const [rating, setRating] = useState(0);
   const [valueCharacter, setValueCharacter] = useState(0);
   const [valuePlot, setValuePlot] = useState(0);
@@ -64,6 +79,7 @@ const RatingNovel = ({ novel }) => {
   const [hoverWorld, setHoverWorld] = useState(-1);
   const [ratingContent, setRatingContent] = useState("");
   const [state, setState] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const roundedRating = (
@@ -88,16 +104,31 @@ const RatingNovel = ({ novel }) => {
       );
       return;
     }
+    setOpenDialog(true);
+  };
+
+  // Create or Update Rating
+  const handleCreateOrUpdateRating = useMutation({
+    mutationFn: (formData) => {
+      return createOrUpdateRating(formData);
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries([`rating-${novelSlug}`]);
+    },
+  });
+
+  const handleConfirmSubmit = async () => {
+    setOpenDialog(false);
     const formData = {
-      novelId: novel._id,
+      novelSlug: novel.slug,
       valueCharacter,
       valuePlot,
       valueWorld,
       ratingContent,
     };
     try {
-      createOrUpdateRating(formData);
-      console.log(formData);
+      handleCreateOrUpdateRating.mutate(formData);
     } catch (error) {
       console.error("Error submitting rating:", error);
     }
@@ -195,6 +226,16 @@ const RatingNovel = ({ novel }) => {
               <IoSend size={24} />
             </div>
           </div>
+          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+            <DialogTitle>Xác nhận</DialogTitle>
+            <DialogContent>
+              <p>Bạn có chắc chắn muốn gửi đánh giá không?</p>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpenDialog(false)}>Thoát</Button>
+              <Button onClick={handleConfirmSubmit}>Đồng ý</Button>
+            </DialogActions>
+          </Dialog>
         </form>
         <div>Nội dung</div>
       </div>

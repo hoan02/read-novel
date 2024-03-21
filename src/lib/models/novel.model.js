@@ -62,14 +62,6 @@ const novelSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    chapters: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
-      default: [],
-    },
-    ratings: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
-      default: [],
-    },
   },
   { timestamps: true }
 );

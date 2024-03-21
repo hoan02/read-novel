@@ -9,13 +9,13 @@ const ListChapterPage = () => {
   const { novelSlug } = useParams();
 
   const {
-    data: novel,
+    data: chapters,
     isLoading,
     isError,
     error,
   } = useQuery({
     queryKey: [`${novelSlug}`],
-    queryFn: () => fetch(`/api/writer/${novelSlug}`).then((res) => res.json()),
+    queryFn: () => fetch(`/api/writer/${novelSlug}/list-chapter`).then((res) => res.json()),
   });
 
   if (isLoading) return <LinearProgress />;
@@ -29,7 +29,7 @@ const ListChapterPage = () => {
 
   return (
     <div>
-      <ListChapterOfNovel novel={novel} />
+      <ListChapterOfNovel chapters={chapters} />
     </div>
   );
 };

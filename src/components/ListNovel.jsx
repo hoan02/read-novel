@@ -14,7 +14,7 @@ const ListNovel = () => {
     isError,
   } = useQuery({
     queryKey: ["novels"],
-    queryFn: fetch(`/api/novels`).then((res) => res.json()),
+    queryFn: () => fetch(`/api/novels`).then((res) => res.json()),
   });
 
   if (isLoading) {
