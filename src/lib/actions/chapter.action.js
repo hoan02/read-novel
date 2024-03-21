@@ -36,7 +36,7 @@ export const createChapter = async (formData) => {
       }
     );
 
-    revalidatePath("/writer");
+    revalidatePath(`/writer/${novelSlug}`);
     return { success: true, message: "Chương đã được tạo thành công!" };
   } catch (error) {
     console.error(error);

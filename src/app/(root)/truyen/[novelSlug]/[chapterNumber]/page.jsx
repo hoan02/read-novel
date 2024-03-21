@@ -2,7 +2,7 @@
 
 import { createOrUpdateMark } from "@/lib/actions/marked.action";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ const SingleChapterPage = ({ params }) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LinearProgress />;
   }
 
   if (isError) {

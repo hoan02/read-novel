@@ -6,10 +6,10 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
 import Intro from "./Intro";
-import ListChapter from "./ListChapter";
 import Fan from "./Fan";
 import Comment from "./Comment";
 import RatingNovel from "./RatingNovel";
+import MenuChapter from "@/components/chapter/MenuChapter";
 
 const TabsDetailsNovel = ({ novel }) => {
   const [value, setValue] = useState("gioi-thieu");
@@ -35,7 +35,7 @@ const TabsDetailsNovel = ({ novel }) => {
       label: "Danh sách chương",
       value: "danh-sach-chuong",
       chip: novel.numberOfChapter,
-      content: <ListChapter />,
+      content: <MenuChapter />,
     },
     {
       label: "Bình luận",

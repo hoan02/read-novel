@@ -1,17 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { FaFlag } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
-import Chip from "@mui/material/Chip";
-import Rating from "@mui/material/Rating";
-import Link from "next/link";
-import TabsDetailsNovel from "@/components/novel/details/TabsDetailsNovel";
+import { Rating, Chip, Button, Skeleton } from "@mui/material";
+import { FaFlag } from "react-icons/fa";
 import { PiSunglassesFill } from "react-icons/pi";
-import { Button } from "@mui/material";
 import { HiOutlineBookmark } from "react-icons/hi";
-import Image from "next/image";
+import TabsDetailsNovel from "@/components/novel/details/TabsDetailsNovel";
 
 const SingleNovelPage = () => {
   const { novelSlug } = useParams();
@@ -26,20 +24,29 @@ const SingleNovelPage = () => {
     queryFn: () => fetch(`/api/marked/${novelSlug}`).then((res) => res.json()),
   });
 
-  if (novelLoading || markedLoading) return <div>Loading</div>;
+  if (novelLoading || markedLoading)
+    return (
+      <div className="bg-white shadow-md p-4 rounded-xl">
+        <div className="flex gap-4">
+          <Skeleton variant="rectangular" width={40} height={40} />
+        </div>
+      </div>
+    );
 
   return (
     <div className="bg-white shadow-md p-4 rounded-xl">
       <div className="flex gap-4">
-        <div>
+        <div className="w-[240-px] h-[320px]">
           <CldImage
             alt={novel.name}
             src={novel.urlCover}
-            width={300}
-            height={400}
+            crop="fill"
+            width={240}
+            height={320}
+            className="w-full h-full"
           />
         </div>
-        <div className="w-full mx-4">
+        <div className="flex-1 mx-4">
           <div className="flex gap-2 items-center">
             <h1 className="text-2xl font-semibold text-green-800">
               {novel.name}

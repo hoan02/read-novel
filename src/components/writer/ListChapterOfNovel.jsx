@@ -5,13 +5,7 @@ import { Box, TextField } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import Link from "next/link";
-import {
-  RiAddLine,
-  RiBookLine,
-  RiEditLine,
-  RiBarChart2Line,
-  RiContactsLine,
-} from "react-icons/ri";
+import { RiEditLine, RiBarChart2Line, RiContactsLine } from "react-icons/ri";
 
 const links = [
   { href: "/chinh-sua", title: "Chỉnh sửa chương", icon: RiEditLine },
@@ -73,22 +67,25 @@ const ListChapterOfNovel = ({ chapters }) => {
     },
   ];
 
-  const rows = chapters.map((chapter, index) => ({
-    id: chapter._id,
-    stt: index + 1,
-    chapterName: chapter.chapterName,
-    chapterNumber: chapter.chapterNumber,
-    createdAt: formatTimeAgo(chapter.createdAt),
-  }));
+  const rows =
+    chapters && Array.isArray(chapters)
+      ? chapters.map((chapter, index) => ({
+          id: chapter._id,
+          stt: index + 1,
+          chapterName: chapter.chapterName,
+          chapterNumber: chapter.chapterNumber,
+          createdAt: formatTimeAgo(chapter.createdAt),
+        }))
+      : [];
+
   const [filterText, setFilterText] = useState("");
 
   const handleFilterTextChange = (e) => {
     setFilterText(e.target.value);
   };
 
-  console.log(chapters);
-
   const filteredRows = useFilteredRows(rows, filterText);
+
   return (
     <div className=" mx-auto">
       <h1 className="text-2xl font-bold mb-4">Danh sách chương</h1>

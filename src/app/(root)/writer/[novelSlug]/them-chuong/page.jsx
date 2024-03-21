@@ -72,12 +72,20 @@ const FormNovel = () => {
     }));
   };
 
+  const handleCreateChapter = useMutation({
+    mutationFn: (formData) => {
+      return createChapter(formData);
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries([`${novelSlug}`]);
+    },
+  });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData);
-      const res = await createChapter(formData);
-      toast.success("Chương đã được tạo thành công!");
+      handleCreateChapter.mutate(formData);
       router.push(`/writer/${novelSlug}`);
     } catch (error) {
       console.error(error);

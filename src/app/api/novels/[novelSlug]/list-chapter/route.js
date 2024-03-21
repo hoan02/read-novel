@@ -1,23 +1,20 @@
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/mongodb/mongoose";
-import Novel from "@/lib/models/novel.model";
+import Chapter from "@/lib/models/chapter.model";
 
 export const GET = async (req, context) => {
   const { params } = context;
   try {
     await connectToDB();
-    const novel = await Novel.findOne({ slug: params.novelSlug })
-      .populate("chapters")
-      .select("chapters.chapterNumber chapters.chapterName");
-    if (!novel) {
-      return new NextResponse("Novel not found", { status: 404 });
-    }
-    const chapters = novel.chapters;
+    const chapters = await Chapter.find({ novelSlug: params.novelSlug });
 
     return NextResponse.json(chapters, { status: 200 });
   } catch (error) {
-    return new NextResponse("Error in fetching novel" + error, {
+    return new NextResponse("Error in fetching chapters: " + error, {
       status: 500,
     });
   }
 };
+
+
+export const dynamic = "force-dynamic";
