@@ -72,7 +72,7 @@ const EditChapter = () => {
     try {
       const res = await updateChapter(formData);
       toast.success("Chương đã cập nhật thành công!");
-      router.push(`/writer/${novelSlug}`);
+      router.push(`/writer/${novelSlug}/danh-sach-chuong`);
     } catch (error) {
       console.error(error);
       toast.error("Đã xảy ra lỗi khi cập nhật chương!");

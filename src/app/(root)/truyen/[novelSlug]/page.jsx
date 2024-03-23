@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { CldImage } from "next-cloudinary";
-import { Rating, Chip, Button, Skeleton } from "@mui/material";
+import { Rating, Chip, Button, Skeleton, LinearProgress } from "@mui/material";
 import { FaFlag } from "react-icons/fa";
 import { PiSunglassesFill } from "react-icons/pi";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -19,17 +19,23 @@ const SingleNovelPage = () => {
     queryFn: () => fetch(`/api/novels/${novelSlug}`).then((res) => res.json()),
   });
 
-  const { data: markedData, isLoading: markedLoading } = useQuery({
+  const { data: markedData, isSuccess: markedSuccess } = useQuery({
     queryKey: [`"marked", ${novelSlug}`],
     queryFn: () => fetch(`/api/marked/${novelSlug}`).then((res) => res.json()),
   });
 
-  if (novelLoading || markedLoading)
+  if (novelLoading)
     return (
       <div className="bg-white shadow-md p-4 rounded-xl">
-        <div className="flex gap-4">
-          <Skeleton variant="rectangular" width={40} height={40} />
+        <div className="flex gap-4 mb-4">
+          <Skeleton variant="rectangular" width={240} height={320} />
+          <div className="space-y-4">
+            <Skeleton variant="rounded" width={600} height={50} />
+            <Skeleton variant="rounded" width={600} height={50} />
+            <Skeleton variant="rounded" width={600} height={50} />
+          </div>
         </div>
+        <LinearProgress />
       </div>
     );
 
@@ -95,66 +101,67 @@ const SingleNovelPage = () => {
             <span className="ml-4 font-semibold">{novel.rating}/10</span>
             <span className="ml-1">{`(${novel.nominations} đánh giá)`}</span>
           </div>
-
-          <div className="flex gap-6">
-            {markedData.chapterNumber === 0 ? (
-              <Link href={`/truyen/${novelSlug}/1`}>
-                <Button
-                  variant="contained"
-                  style={{
-                    width: "150px",
-                    borderRadius: "30px",
-                    textTransform: "none",
-                    fontSize: "16px",
-                  }}
-                  startIcon={<PiSunglassesFill size={30} />}
-                >
-                  Đọc truyện
-                </Button>
-              </Link>
-            ) : (
-              <Link href={`/truyen/${novelSlug}/${markedData.chapterNumber}`}>
-                <Button
-                  variant="contained"
-                  style={{
-                    width: "150px",
-                    borderRadius: "30px",
-                    textTransform: "none",
-                    fontSize: "16px",
-                  }}
-                  startIcon={<PiSunglassesFill size={30} />}
-                >
-                  Đọc tiếp
-                </Button>
-              </Link>
-            )}
-            <Button
-              variant="outlined"
-              style={{
-                width: "150px",
-                borderRadius: "30px",
-                textTransform: "none",
-                fontSize: "16px",
-              }}
-              startIcon={<HiOutlineBookmark size={24} />}
-            >
-              Đánh dấu
-            </Button>
-            <Button
-              variant="outlined"
-              style={{
-                width: "150px",
-                borderRadius: "30px",
-                textTransform: "none",
-                fontSize: "16px",
-              }}
-              startIcon={
-                <Image src="/candy.png" alt="candy" width={24} height={24} />
-              }
-            >
-              Đề cử
-            </Button>
-          </div>
+          {markedSuccess && (
+            <div className="flex gap-6">
+              {markedData.chapterNumber === 0 ? (
+                <Link href={`/truyen/${novelSlug}/1`}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "150px",
+                      borderRadius: "30px",
+                      textTransform: "none",
+                      fontSize: "16px",
+                    }}
+                    startIcon={<PiSunglassesFill size={30} />}
+                  >
+                    Đọc truyện
+                  </Button>
+                </Link>
+              ) : (
+                <Link href={`/truyen/${novelSlug}/${markedData.chapterNumber}`}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "150px",
+                      borderRadius: "30px",
+                      textTransform: "none",
+                      fontSize: "16px",
+                    }}
+                    startIcon={<PiSunglassesFill size={30} />}
+                  >
+                    Đọc tiếp
+                  </Button>
+                </Link>
+              )}
+              <Button
+                variant="outlined"
+                style={{
+                  width: "150px",
+                  borderRadius: "30px",
+                  textTransform: "none",
+                  fontSize: "16px",
+                }}
+                startIcon={<HiOutlineBookmark size={24} />}
+              >
+                Đánh dấu
+              </Button>
+              <Button
+                variant="outlined"
+                style={{
+                  width: "150px",
+                  borderRadius: "30px",
+                  textTransform: "none",
+                  fontSize: "16px",
+                }}
+                startIcon={
+                  <Image src="/candy.png" alt="candy" width={24} height={24} />
+                }
+              >
+                Đề cử
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <div className="mt-10">

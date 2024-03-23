@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
 import Link from "next/link";
 import { FaSortAmountDownAlt, FaSortAmountDown } from "react-icons/fa";
+import formatTimeAgo from "@/utils/formatTimeAgo";
 
 const MenuChapter = () => {
   const { novelSlug } = useParams();
@@ -46,18 +47,24 @@ const MenuChapter = () => {
           className="text-blue-500 hover:text-blue-700"
           onClick={handleSortToggle}
         >
-          {ascending ? <FaSortAmountDownAlt size={30}/> : <FaSortAmountDown size={30}/>}
+          {ascending ? (
+            <FaSortAmountDownAlt size={30} />
+          ) : (
+            <FaSortAmountDown size={30} />
+          )}
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-4">
         {sortedChapters?.map((chapter) => {
           return (
-            <div key={chapter._id} className="border-b-2 border-dotted">
-              <Link
-                href={`/truyen/${novelSlug}/${chapter.chapterNumber}`}
-                className="text-sm text-gray-600 hover:text-green-700 hover:font-medium"
-              >{`Chương ${chapter.chapterNumber}: ${chapter.chapterName}`}</Link>
-            </div>
+            <Link
+              key={chapter._id}
+              href={`/truyen/${novelSlug}/${chapter.chapterNumber}`}
+              className="text-sm text-gray-00 flex justify-between hover:text-green-600 border-b border-dotted"
+            >
+              <p>{`Chương ${chapter.chapterNumber}: ${chapter.chapterName}`}</p>
+              <p>({formatTimeAgo(chapter.createdAt)})</p>
+            </Link>
           );
         })}
       </div>

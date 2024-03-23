@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { LinearProgress } from "@mui/material";
 
 import TextEditor from "@/components/TextEditor";
@@ -26,6 +26,7 @@ import formatTimeAgo from "@/utils/formatTimeAgo";
 import { createChapter } from "@/lib/actions/chapter.action";
 
 const FormNovel = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { novelSlug } = useParams();
   const [formData, setFormData] = useState({
@@ -53,7 +54,7 @@ const FormNovel = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: [`${novelSlug}`],
+    queryKey: [`novel-${novelSlug}`],
     queryFn: fetchDataNovel,
   });
 
@@ -78,7 +79,8 @@ const FormNovel = () => {
     },
     onSuccess: (res) => {
       toast.success(res.message);
-      queryClient.invalidateQueries([`${novelSlug}`]);
+      queryClient.invalidateQueries([`novel-${novelSlug}`]);
+      router.push(`/writer/${novelSlug}/danh-sach-chuong`);
     },
   });
 
@@ -86,7 +88,6 @@ const FormNovel = () => {
     event.preventDefault();
     try {
       handleCreateChapter.mutate(formData);
-      router.push(`/writer/${novelSlug}`);
     } catch (error) {
       console.error(error);
       toast.error("Đã xảy ra lỗi khi tạo chương!");
@@ -105,17 +106,22 @@ const FormNovel = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={12}>
-        <div className="space-y-4 bg-zinc-700 p-4 rounded-lg">
-          <p className="font-semibold text-ms">
+        <div className="space-y-4 bg-zinc-700 p-4 rounded-lg font-source-sans-pro">
+          <p className="font-semibold text-xl">
             Hướng dẫn cách thêm chương mới
           </p>
           <Divider />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-            exercitationem eum suscipit numquam ipsum esse atque porro rerum
-            odit nisi ipsam voluptates omnis incidunt necessitatibus,
-            praesentium accusantium odio quam maiores.
-          </p>
+          <ul className="list-disc ml-6 text-gray-300">
+            <li>
+              Chương tiếp: Nếu bạn chọn "Chương tiếp" thì hệ thống sẽ tự đánh
+              STT chương tiếp theo cho bạn
+            </li>
+            <li>
+              {`Chèn chương: Ví dụ truyện đã đăng 100 chương có STT từ 1 -> 100,
+              nếu bạn chọn "Chèn chương" thì các chương sau sẽ tăng STT lên 1`}
+            </li>
+            <p>{`Ví dụ: Truyện đã có 100 chương, bạn chèn vào chương thứ 50 thì các chương ban đầu từ 50->100 sẽ tăng lên 1 trở thành 51->101`}</p>
+          </ul>
         </div>
       </Grid>
 

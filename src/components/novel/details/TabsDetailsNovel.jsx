@@ -40,7 +40,7 @@ const TabsDetailsNovel = ({ novel }) => {
     {
       label: "Bình luận",
       value: "binh-luan",
-      chip: novel.numberOfChapter,
+      chip: novel.numberOfComment,
       content: <Comment />,
     },
     {

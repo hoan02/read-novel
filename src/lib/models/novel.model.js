@@ -58,6 +58,10 @@ const novelSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    numberOfComment: {
+      type: Number,
+      default: 0,
+    },
     isPublic: {
       type: Boolean,
       default: false,

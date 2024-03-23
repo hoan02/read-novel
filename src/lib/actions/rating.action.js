@@ -13,29 +13,30 @@ export const createOrUpdateRating = async (formData) => {
     const { userId } = auth();
     await connectToDB();
 
-    let existingRating = await Rating.findOneAndUpdate(
-      { novelSlug, clerkId: userId },
-      {
-        $set: {
-          valueCharacter,
-          valuePlot,
-          valueWorld,
-          ratingContent,
-        },
-      },
-      {
-        new: true,
-        upsert: true,
-      }
-    );
+    let existingRating = await Rating.findOne({ novelSlug, clerkId: userId });
 
-    if (existingRating.isNew) {
+    if (existingRating) {
+      existingRating.valueCharacter = valueCharacter;
+      existingRating.valuePlot = valuePlot;
+      existingRating.valueWorld = valueWorld;
+      existingRating.ratingContent = ratingContent;
+      await existingRating.save();
+    } else {
+      await Rating.create({
+        novelSlug,
+        clerkId: userId,
+        valueCharacter,
+        valuePlot,
+        valueWorld,
+        ratingContent,
+      });
       await Novel.updateOne(
         { slug: novelSlug },
         { $inc: { numberOfRating: 1 } }
       );
     }
-    revalidatePath("/truyen");
+
+    revalidatePath(`/truyen/${novelSlug}`);
     return { success: true, message: "Đánh giá thành công!" };
   } catch (error) {
     console.error(error);

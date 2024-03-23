@@ -7,9 +7,12 @@ export default function formatTimeAgo(dateTimeString) {
   const diffMinutes = now.diff(postTime, "minutes");
   const diffHours = now.diff(postTime, "hours");
   const diffDays = now.diff(postTime, "days");
+  const diffYears = now.diff(postTime, "years");
 
-  if (diffDays >= 1) {
-    return moment(dateTimeString).format("HH:mm DD/MM/YYYY");
+  if (diffYears >= 1) {
+    return moment(dateTimeString).format("DD/MM/YYYY");
+  } else if (diffDays >= 1) {
+    return `${diffDays} ngày trước`;
   } else if (diffHours >= 1) {
     return `${diffHours} giờ trước`;
   } else if (diffMinutes >= 1) {
