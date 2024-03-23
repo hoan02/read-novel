@@ -113,8 +113,8 @@ const FormNovel = () => {
           <Divider />
           <ul className="list-disc ml-6 text-gray-300">
             <li>
-              Chương tiếp: Nếu bạn chọn "Chương tiếp" thì hệ thống sẽ tự đánh
-              STT chương tiếp theo cho bạn
+              {`Chương tiếp: Nếu bạn chọn "Chương tiếp" thì hệ thống sẽ tự đánh
+              STT chương tiếp theo cho bạn`}
             </li>
             <li>
               {`Chèn chương: Ví dụ truyện đã đăng 100 chương có STT từ 1 -> 100,
