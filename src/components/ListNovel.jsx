@@ -49,7 +49,7 @@ const ListNovel = () => {
         {novels.map((novel, index) => (
           <div
             key={index}
-            className="flex items-center justify-center bg-gray-100 p-4 rounded"
+            className="flex bg-gray-100 p-4 rounded"
           >
             <Image
               src={novel.urlCover}
@@ -58,19 +58,20 @@ const ListNovel = () => {
               height={128}
               className="object-cover"
             />
-            <div className="ml-4">
+            <div className="ml-4 flex flex-col">
               <Link
                 href={`/truyen/${novel.slug}`}
                 className="text-base font-semibold hover:text-green-500"
+                title={novel.name}
               >
-                {novel.name.length > 34
-                  ? novel.name.substring(0, 34) + "..."
+                {novel.name.length > 24
+                  ? novel.name.substring(0, 24) + "..."
                   : novel.name}
               </Link>
 
-              <p className="text-sm text-gray-500">
-                {novel.description.length > 120
-                  ? novel.description.substring(0, 120) + "..."
+              <p className="flex-1 mt-2 text-sm text-gray-500">
+                {novel.description.length > 150
+                  ? novel.description.substring(0, 150) + "..."
                   : novel.description}
               </p>
               <div className="mt-2 flex justify-between">
